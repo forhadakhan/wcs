@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@900&family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap");
+
+.bg-grid {
+    background-color: rgb(11, 68, 112);
+    background-image: linear-gradient(
+            rgba(102, 83, 83, 0.5) 2px,
+            transparent 2px
+        ),
+        linear-gradient(90deg, rgba(122, 80, 80, 0.281) 2px, transparent 2px),
+        linear-gradient(rgba(255, 255, 255, 0.062) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.082) 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+}
+
+body {
+    min-height: 100%;
+}
+
+section {
+    padding: 150px 0;
+}
+
+footer {
+    clear: both;
+    position: relative;
+    margin-top: -200px;
+}
+
+.p20p {
+    padding: 20% 0;
+}
+
+footer div p {
+    color: #a9a9a9;
+}
+
+.navbar-brand {
+    font-family: "Raleway", sans-serif;
+    font-size: 2em;
+    line-height: 0.9;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.25em;
+}
+
+.full-vertical-height {
+    height: 100vh;
+}
+
+.h-font h1 {
+    font-family: "Raleway", sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.h-font p {
+    font-family: "Shadows Into Light Two", cursive;
+    font-size: 1.5em;
+}
+
+.h-font a button {
+    font-family: "Open Sans Condensed", sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    padding: 4px 25px;
+}
+
+.jumbotron {
+    background: #358cce;
+    color: #fff;
+    border-radius: 0px;
+}
+.jumbotron-sm {
+    padding-top: 24px;
+    padding-bottom: 24px;
+}
+.jumbotron small {
+    color: #fff;
+}
+.h1 small {
+    font-size: 24px;
+}
+
+.mrts {
+    text-align: center;
+    font-size: 0.5rem;
+    color: #757171;
+}
