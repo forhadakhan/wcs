@@ -13,7 +13,7 @@
     <!-- Navbar-->
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            <a class="nav-link" id="userDropdown" href="{{url('admin/logout')}}"><i class="fas fa-sign-out"></i></a>
+            <a class="nav-link js-scroll-trigger" href="{{url('admin/logout')}}"> Logout </a>
         </li>
     </ul>
 </nav>

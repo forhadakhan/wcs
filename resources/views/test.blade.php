@@ -30,7 +30,25 @@
 
 
 
-// use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB;
+use App\Models\Admin;
 
-// $total = DB::table('admins_tbl')->count();
-// echo $total;
+//  $total = DB::table('admins_tbl')->count();
+//  echo $total;
+// $aid = Session::get('LoggedAdmin');
+// $aid2 = session('LoggedAdmin');
+
+// echo $aid;
+// echo $aid2;
+
+
+//   $total2 = DB::table('admins_tbl')
+//              ->where('id_admin', $aid2)
+//              ->get();
+
+// print_r($total2);
+
+//  $admin = Admin::where('id_admin', '=', $aid2)->first();
+//  echo $admin['role_admin'];
+// echo $total2;
+// return $total2;

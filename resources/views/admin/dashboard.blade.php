@@ -15,9 +15,13 @@
 
     <div id="layoutSidenav_content">
         <main>
+
+            @include('alertMessage')
+
             <div class="container">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">CORE</li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
                 <div class="row">
@@ -54,7 +58,7 @@
                             <div class="card-body">
                                 <h1>0</h1>
                                 <span>
-                                    <strong>BDT</strong> Loans 
+                                    <strong>BDT</strong> Loans
                                 </span>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -80,18 +84,8 @@
                 </div>
             </div>
         </main>
-        <footer class="py-4 bg-light mt-auto">
-            <div class="container-fluid">
-                <div class="d-flex align-items-center justify-content-between small">
-                    <div class="text-muted">Copyright &copy; Your Website 2020</div>
-                    <div>
-                        <a href="#">Privacy Policy</a>
-                        &middot;
-                        <a href="#">Terms &amp; Conditions</a>
-                    </div>
-                </div>
-            </div>
-        </footer>
+
+        @include('admin.footer')
     </div>
 </div>
 @endsection

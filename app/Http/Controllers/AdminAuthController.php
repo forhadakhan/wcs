@@ -78,7 +78,7 @@ class AdminAuthController extends Controller
         if ($admin) {
             if (Hash::check($request->password, $admin->password_admin)) {
                 // if password matched, then redirect admin to dashboard
-                $request->session()->put('LoggedAdmin', $admin->id_admin);
+                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
                 return redirect('dashboard');
             } else {
                 return back()->with('fail', 'Invalid password');

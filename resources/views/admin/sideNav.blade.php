@@ -46,8 +46,10 @@
                 <div class="collapse" id="collapseLayouts2" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
                         <a class="nav-link" href="{{url('admins')}}">All Admins</a>
-                        <a class="nav-link" href="{{url('admins/add')}}">Add Admin</a>
-                        <a class="nav-link" href="{{url('admins/edit')}}">Edit Admin</a>
+                        @if($LoggedAdminInfo->role_admin == 'SUPER_ADMIN')
+                            <a class="nav-link" href="{{url('admins/add')}}">Add Admin</a>
+                            <a class="nav-link" href="{{url('admins/edit')}}">Edit Admin</a>
+                        @endif
                     </nav>
                 </div>
 
