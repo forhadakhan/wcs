@@ -34,7 +34,7 @@
 
                     <hr>
                     <div class="form-group row">
-                      <label for="infoo1" class="col-sm-2 col-form-label font-weight-bold">Role</label>
+                      <label for="infoo1" class="col-sm-2 col-form-label font-weight-bold text-right text-right">Role</label>
                         <div class="col-sm-10">
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="role">
                                 @if ($adminInfo->role_admin == 'SUPER_ADMIN')
@@ -54,7 +54,7 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo2" class="col-sm-2 col-form-label font-weight-bold">Name</label>
+                        <label for="infoo2" class="col-sm-2 col-form-label font-weight-bold text-right">Name</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control" id="infoo2" name="fullName" value="{{ $adminInfo->name_admin }}">
                             @if($errors->has('fullName'))
@@ -66,7 +66,7 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo3" class="col-sm-2 col-form-label font-weight-bold">Phone</label>
+                        <label for="infoo3" class="col-sm-2 col-form-label font-weight-bold text-right">Phone</label>
                         <div class="col-sm-10">
                           <input type="text" class="form-control" name="phone" id="infoo3" value="{{ $adminInfo->phone_admin }}">
                             @if($errors->has('phone'))
@@ -78,7 +78,7 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo4" class="col-sm-2 col-form-label font-weight-bold">Email</label>
+                        <label for="infoo4" class="col-sm-2 col-form-label font-weight-bold text-right">Email</label>
                         <div class="col-sm-10">
                             <input readonly name="email" type="text" class="form-control" id="infoo4" value="{{ $adminInfo->email_admin }}">
                             @if($errors->has('email'))
@@ -90,21 +90,21 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo5" class="col-sm-2 col-form-label font-weight-bold">Joined</label>
+                        <label for="infoo5" class="col-sm-2 col-form-label font-weight-bold text-right">Joined</label>
                         <div class="col-sm-10">
                           <input type="text" readonly class="form-control" id="infoo5" value="{{ $adminInfo->created_at }}">
                         </div>
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo6" class="col-sm-2 col-form-label font-weight-bold">Last Updated</label>
+                        <label for="infoo6" class="col-sm-2 col-form-label font-weight-bold text-right">Last Updated</label>
                         <div class="col-sm-10">
                           <input type="text" readonly class="form-control" id="infoo6" value="{{ $adminInfo->updated_at }}">
                         </div>
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="infoo7" class="col-sm-2 col-form-label font-weight-bold">Action</label>
+                        <label for="infoo7" class="col-sm-2 col-form-label font-weight-bold text-right">Action</label>
                         <div class="col-sm-10">
                             <button class="btn btn-primary form-control" id="infoo7" type="submit">Update</button>
                         </div>

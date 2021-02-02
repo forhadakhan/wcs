@@ -10,26 +10,26 @@ use Illuminate\Console\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Session\Session;
+use App\Http\Controllers\FileUploadController;
 
+Route::get('file-upload', [FileUploadController::class, 'index']);
+Route::post('file-upload', [FileUploadController::class, 'store'])->name('storef');
 
 Route::get('/', function () {
     return view('index');
 });
+// Route::get('/addm', function () {
+//     return view('auth.member.addMember');
+// });
 
-Route::view('test', 'test');
+Route::view('testing', 'test');
+Route::view('addm', 'auth.member.addMember');
 
 
 // No Authentication Required
 Route::get('apply', [ApplyController::class, 'show']);
 Route::get('login/admin', [AdminAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
 
-
-Route::post('record', [ApplyController::class, 'record'])->name('application');
-Route::post('check', [AdminAuthController::class, 'check'])->name('auth.admin.check');
-Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
-Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
-Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
-Route::post('create', [AdminAuthController::class, 'create'])->name('auth.admin.register');
 
 
 // Admin Authentication Required
@@ -46,4 +46,12 @@ Route::get('admins/edit', [AdminAuthController::class, 'edit'])->middleware('isS
 Route::get('admins/edit/{id}', [AdminAuthController::class, 'makeEdit'])->middleware('isSuperAdminLoggedIn');
 Route::get('admins/delete/{id}', [AdminAuthController::class, 'deleteAdminBySuper'])->middleware('isSuperAdminLoggedIn');
 
+
+Route::post('record', [ApplyController::class, 'record'])->name('application');
+Route::post('check', [AdminAuthController::class, 'check'])->name('auth.admin.check');
+Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
+Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
+Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
+Route::post('create', [AdminAuthController::class, 'create'])->name('auth.admin.register');
+Route::post('createMember', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
 

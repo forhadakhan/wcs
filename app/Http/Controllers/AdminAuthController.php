@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Member;
 use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 
 
@@ -23,6 +25,11 @@ class AdminAuthController extends Controller
     function register()
     {
         return view('auth.admin.register');
+    }
+
+    function registerMember()
+    {
+        return view('auth.member.addMember');
     }
 
 
@@ -79,7 +86,9 @@ class AdminAuthController extends Controller
             if (Hash::check($request->password, $admin->password_admin)) {
                 // if password matched, then redirect admin to dashboard
                 $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
-                return redirect('dashboard');
+
+                return redirect('dashboard')->with('adminData');
+
             } else {
                 return back()->with('fail', 'Invalid password');
             }
@@ -95,7 +104,10 @@ class AdminAuthController extends Controller
             $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
 
             $adminData = [
-                'LoggedAdminInfo' => $admin
+                'LoggedAdminInfo' => $admin,
+                'totalSuperAdmin' => DB::table('admins_tbl')->where('role_admin','=','SUPER_ADMIN')->count(),
+                'totalGeneralAdmin' => DB::table('admins_tbl')->where('role_admin','=','ADMIN')->count(),
+                'totalApplications' => DB::table('applications_tbl')->count()
             ];
 
             return view('admin.dashboard', $adminData);
@@ -279,4 +291,61 @@ class AdminAuthController extends Controller
             return redirect('login/admin');
         }
     }
+
+
+    function createMember(Request $request)
+    {
+        $request->validate([
+            'type' => 'required',
+            'fullName' => 'required|max:69',
+            'bday' => 'required',
+            'phone' => 'required|max:15|min:3',
+            'nid' => 'required|max:17|min:10',
+            'email' => 'required|email|max:69|unique:admins_tbl,email_admin',
+            'password' => 'required|confirmed|min:4|max:25'
+        ]);
+
+        // If form validated succesfully, then register new user
+
+        $member = new Member;
+        $member->type_member = $request->type;
+        // $member->img_member = $request->file('img')->store('public/images');
+        $member->img_member = Storage::putFile('images', $request->file('img'));
+        $member->name_member = $request->fullName;
+        $member->birthday_member = $request->bday;
+        $member->phone_member = $request->phone;
+        $member->nid_member = $request->nid;
+        $member->email_member = $request->email;
+        $member->password_member = Hash::make($request->password);
+
+        // if($request->hasFile('img')){
+        //     $file = $request->file('img');
+        //     $extension = $file->getClientOriginalExtension(); //get image extension
+        //     $filename = time().'.'.$extension;
+        //     $file->move('uploads/members/', $filename);
+        //     $member->img_member = $filename;
+        // }
+        // else {
+        //     $member->img_member = '';
+        // }
+
+        $query = $member->save();
+
+        // Above code (same) using QUERY BUILDER
+        // $query = DB::table('admins_tbl')
+        //                 ->insert([
+        //                     'name_admin' => $request->fullName,
+        //                     'role_admin' => $request->role,
+        //                     'phone_admin' => $request->phone,
+        //                     'email_admin' => $request->email,
+        //                     'password_admin' => Hash::make($request->password)
+        //                 ]);
+
+        if ($query) {
+            return back()->with('success', 'Admin registered succesfully');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
 }

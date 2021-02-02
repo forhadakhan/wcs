@@ -28,7 +28,7 @@
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">
                             <div class="card-body">
-                                <h1>{{DB::table('applications_tbl')->count()}}</h1>
+                                <h1>{{ $totalApplications }}</h1>
                                 <span>
                                     Pending Applications
                                 </span>
@@ -56,9 +56,9 @@
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-danger text-white mb-4">
                             <div class="card-body">
-                                <h1>0</h1>
+                                <h1>{{ $totalSuperAdmin }}</h1>
                                 <span>
-                                    <strong>BDT</strong> Loans
+                                    Super Admins
                                 </span>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -70,9 +70,9 @@
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-dark text-white mb-4">
                             <div class="card-body">
-                                <h1>{{DB::table('admins_tbl')->count()}}</h1>
+                                <h1>{{ $totalGeneralAdmin }}</h1>
                                 <span>
-                                    Active Admins
+                                    General Admins
                                 </span>
                             </div>
                             <div class="card-footer text-black d-flex align-items-center justify-content-between">

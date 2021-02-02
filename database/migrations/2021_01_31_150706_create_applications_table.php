@@ -17,9 +17,10 @@ class CreateApplicationsTable extends Migration
             $table->id('id_application');
             $table->string('fullName_application', 70);
             $table->string('phone_application', 15)->unique();
-            $table->string('email_application', 50);
-            $table->text('whyInterested_application');
-            $table->timestamps();
+            $table->string('email_application', 50)->nullable($value = true);
+            $table->text('whyInterested_application')->nullable($value = true);
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('	updated_at')->useCurrentOnUpdate();
         });
     }
 

@@ -107,7 +107,7 @@
                 </div>
                 <div class="row my-3 mx-1">
                     <address class="d-block p-20">
-                        <strong>Web</strong><br>
+                        <strong>Online</strong><br>
                         <a href="http://wcs.test/">www.wcs.test</a> <br>
                         Email: <a href="mailto:#">mail@wcs.test</a>
                     </address>

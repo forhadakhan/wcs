@@ -20,7 +20,8 @@ class CreateAdminsTable extends Migration
             $table->string('phone_admin', 15);
             $table->string('email_admin', 70);
             $table->string('password_admin', 150);
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('	updated_at')->useCurrentOnUpdate();
 
             $table->unique('email_admin');
         });

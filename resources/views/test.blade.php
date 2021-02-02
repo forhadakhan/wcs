@@ -32,6 +32,7 @@
 
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin;
+use App\Models\Application;
 
 //  $total = DB::table('admins_tbl')->count();
 //  echo $total;
@@ -52,3 +53,12 @@ use App\Models\Admin;
 //  echo $admin['role_admin'];
 // echo $total2;
 // return $total2;
+
+// $applications = DB::table('applications_tbl')
+//                     ->select('*')
+//                     ->get();
+
+// $applications = Application::select('*')->get();
+
+// echo $applications;
+
