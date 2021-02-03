@@ -53,8 +53,8 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'isAdminLoggedIn' => \App\Http\Middleware\AuthCheck::class,
-        'isSuperAdminLoggedIn' => \App\Http\Middleware\AuthCheckSuper::class,
+        'authCheckAdmin' => \App\Http\Middleware\AuthCheckAdmin::class,
+        'authCheckSuperAdmin' => \App\Http\Middleware\AuthCheckSuper::class,
         'alreadyAdminLoggedIn' => \App\Http\Middleware\AlreadyAdminLoggedIn::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,

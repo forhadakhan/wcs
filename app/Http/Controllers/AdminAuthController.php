@@ -93,7 +93,7 @@ class AdminAuthController extends Controller
                 return back()->with('fail', 'Invalid password');
             }
         } else {
-            return back()->with('fail', 'No account found for this email');
+            return back()->with('fail', 'We do not recognize your email');
         }
     }
 
