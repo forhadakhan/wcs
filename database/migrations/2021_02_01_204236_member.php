@@ -24,8 +24,7 @@ class Member extends Migration
             $table->string('nid_member', 20)->nullable($value = true);
             $table->string('email_member', 50)->nullable($value = true);
             $table->string('password_member', 150);
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('	updated_at')->useCurrentOnUpdate();
+            $table->timestamps();
         });
     }
 

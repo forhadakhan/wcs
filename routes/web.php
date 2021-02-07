@@ -10,13 +10,13 @@ Route::get('/', function () {
     return view('index');
 });
 
-
+// Dummy testing file view
 Route::view('testing', 'test');
-Route::view('addm', 'auth.member.addMember');
 
 
 // No Authentication Required
 Route::get('apply', [ApplyController::class, 'show']);
+Route::post('record', [ApplyController::class, 'record'])->name('application');
 Route::get('login/admin', [AdminAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
 Route::post('check', [AdminAuthController::class, 'check'])->name('auth.admin.check');
 
@@ -29,8 +29,10 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
     Route::get('profile/admin', [AdminAuthController::class, 'profile']);
     Route::get('profile/update', [AdminAuthController::class, 'updateView']);
     Route::get('admin/logout', [AdminAuthController::class, 'logout']);
+    Route::get('members/add', [AdminAuthController::class, 'registerMember']);
 
-    Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
+    Route::post('members/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
+    Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
 });
 
 
@@ -41,10 +43,6 @@ Route::group(['middleware' => 'authCheckSuperAdmin'], function () {
     Route::get('admins/edit/{id}', [AdminAuthController::class, 'makeEdit']);
     Route::get('admins/delete/{id}', [AdminAuthController::class, 'deleteAdminBySuper']);
 
-    Route::post('record', [ApplyController::class, 'record'])->name('application');
-    Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
-    Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
     Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
-    Route::post('create', [AdminAuthController::class, 'create'])->name('auth.admin.register');
-    Route::post('createMember', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
+    Route::post('admins/add', [AdminAuthController::class, 'createAdmin'])->name('auth.admin.register');
 });

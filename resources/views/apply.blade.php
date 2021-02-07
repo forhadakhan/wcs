@@ -25,18 +25,7 @@
                                 <form action="{{ route('application') }}" method="POST">
                                     @csrf
 
-                                    <div class="results">
-                                        @if (Session::get('success'))
-                                            <div class="alert alert-success">
-                                                {{ Session::get('success') }}
-                                            </div>
-                                        @endif
-                                        @if (Session::get('fail'))
-                                            <div class="alert alert-danger">
-                                                {{ Session::get('fail') }}
-                                            </div>
-                                        @endif
-                                    </div>
+                                    @include('alertMessage')
 
                                     <div class="form-row">
                                         <div class="col-md-6">

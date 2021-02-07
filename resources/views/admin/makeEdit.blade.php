@@ -56,7 +56,7 @@
                     <div class="form-group row">
                         <label for="infoo2" class="col-sm-2 col-form-label font-weight-bold text-right">Name</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" id="infoo2" name="fullName" value="{{ $adminInfo->name_admin }}">
+                          <input type="text" class="form-control" id="infoo2" name="fullName" value="{{ old('fullName')? old('fullName') : $adminInfo->name_admin }}">
                             @if($errors->has('fullName'))
                                 <div class="alert alert-warning" role="alert">
                                     @error('fullName'){{$message}}@enderror
@@ -68,7 +68,7 @@
                     <div class="form-group row">
                         <label for="infoo3" class="col-sm-2 col-form-label font-weight-bold text-right">Phone</label>
                         <div class="col-sm-10">
-                          <input type="text" class="form-control" name="phone" id="infoo3" value="{{ $adminInfo->phone_admin }}">
+                          <input type="text" class="form-control" name="phone" id="infoo3" value="{{ old('phone')? old('phone') : $adminInfo->phone_admin }}">
                             @if($errors->has('phone'))
                                 <div class="alert alert-warning" role="alert">
                                     @error('phone'){{$message}}@enderror
@@ -80,7 +80,7 @@
                     <div class="form-group row">
                         <label for="infoo4" class="col-sm-2 col-form-label font-weight-bold text-right">Email</label>
                         <div class="col-sm-10">
-                            <input readonly name="email" type="text" class="form-control" id="infoo4" value="{{ $adminInfo->email_admin }}">
+                            <input name="email" type="text" class="form-control" id="infoo4" value="{{ old('email')? old('email') : $adminInfo->email_admin }}">
                             @if($errors->has('email'))
                                 <div class="alert alert-warning" role="alert">
                                     @error('email'){{$message}}@enderror

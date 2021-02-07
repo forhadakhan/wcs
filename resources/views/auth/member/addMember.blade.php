@@ -18,7 +18,7 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <form action="{{route('auth.member.add')}}" enctype="multipart/form-data" method="POST">
+                                    <form action="{{route('auth.member.add')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         @include('alertMessage')
@@ -26,11 +26,11 @@
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputFullName">Type</label>
                                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="type">
-                                                <option selected value="0">Select</option>
-                                                <option value="1">Regular</option>
-                                                <option value="2">Basic</option>
-                                                <option value="3">Platinum</option>
-                                                <option value="4">Gold</option>
+                                                <option selected value="1">Select</option>
+                                                <option value="2">Regular</option>
+                                                <option value="3">Basic</option>
+                                                <option value="4">Platinum</option>
+                                                <option value="5">Gold</option>
                                             </select>
                                             @if($errors->has('type'))
                                                 <div class="alert alert-warning" role="alert">
@@ -40,7 +40,10 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="small mb-1 form-label" for="formFile">Image</label> <br>
-                                            <input required enctype="multipart/form-data" class="py-2" value="{{ old('img') }}" id="formFile" type="file" name="img" />
+                                            <div class="custom-file">
+                                                <input name="img" required type="file" value="{{ old('img') }}" class="custom-file-input" id="customFileLangHTML">
+                                                <label class="custom-file-label" for="customFileLangHTML" data-browse="Select">Add member's image</label>
+                                            </div>
                                             @if($errors->has('img'))
                                                 <div class="alert alert-warning" role="alert">
                                                     @error('img'){{$message}}@enderror
