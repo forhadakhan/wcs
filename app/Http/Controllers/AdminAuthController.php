@@ -82,7 +82,7 @@ class AdminAuthController extends Controller
                 // if password matched, then redirect admin to dashboard
                 $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
 
-                return redirect('dashboard')->with('adminData');
+                return redirect('dashboard');
 
             } else {
                 return back()->with('fail', 'Invalid password');
@@ -198,6 +198,23 @@ class AdminAuthController extends Controller
     }
 
 
+    function allMembers()
+    {
+        if (session()->has('LoggedAdmin')) {
+            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+            $data = Member::all();
+
+            $adminData = [
+                'LoggedAdminInfo' => $admin,
+                'members' => $data
+            ];
+
+            return view('admin.members', $adminData);
+        }
+    }
+
+
     function edit()
     {
         if (session()->has('LoggedAdmin')) {
@@ -309,6 +326,7 @@ class AdminAuthController extends Controller
         if (session()->has('LoggedAdmin')) {
 
             session()->pull('LoggedAdmin');
+            session()->pull('LoggedAdminRole');
 
             return redirect('login/admin');
         }
@@ -327,9 +345,10 @@ class AdminAuthController extends Controller
     {
         $request->validate([
             'type' => 'required',
-            'img' => 'required|mimes:jpg,jpge,png|max:2048',
+            'img' => 'mimes:jpg,jpge,png|max:2048',
             'fullName' => 'required|max:69|min:3',
             'bday' => 'required',
+            'gender' => 'required',
             'phone' => 'required|max:15|min:3|unique:members_tbl,phone_member',
             'nid' => 'required|max:17|min:10',
             'email' => 'required|email|max:69|unique:members_tbl,email_member',
@@ -337,13 +356,16 @@ class AdminAuthController extends Controller
         ]);
 
         // Renaming and storing the image.
-        if ($request->file('img')->isValid()) {
-            $file = $request->file('img');
-            $img = date('Ymd').time().'.'.$file->extension();
-            $path = $file->move(public_path('storage\\images'), $img);
+        if($request->hasFile('img')){
+            if ($request->file('img')->isValid())
+            {
+                $file = $request->file('img');
+                $img = date('Ymd').time().'.'.$file->extension();
+                $path = $file->move(public_path('storage\\images'), $img);
+            }
         }
         else {
-            return back()->with('fail','Something wrong with image');
+            $img = '';
         }
 
         // If form validated succesfully, then register new user
@@ -353,6 +375,7 @@ class AdminAuthController extends Controller
         $member->img_member = $img;
         $member->name_member = $request->fullName;
         $member->birthday_member = $request->bday;
+        $member->gender_member = $request->gender;
         $member->phone_member = $request->phone;
         $member->nid_member = $request->nid;
         $member->email_member = $request->email;

@@ -20,6 +20,7 @@ class CreateMembersTable extends Migration
             $table->mediumText('img_member')->nullable($value = true);
             $table->string('name_member', 70);
             $table->date('birthday_member')->nullable($value = true);
+            $table->char('gender_member', 7);
             $table->string('phone_member', 15)->unique();
             $table->string('nid_member', 20)->nullable($value = true);
             $table->boolean('access_member')->default(true);

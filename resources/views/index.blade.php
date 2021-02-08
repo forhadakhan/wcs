@@ -28,7 +28,7 @@
                 <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{{ url('login/admin') }}">
+                <a class="nav-link js-scroll-trigger" href="{{ url('login') }}">
                     @if(session()->has('LoggedAdmin'))
                         <i class="fa fa-tachometer"> Dashboard </i>
                     @else

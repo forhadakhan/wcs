@@ -41,7 +41,7 @@
                                         <div class="form-group">
                                             <label class="small mb-1 form-label" for="formFile">Image</label> <br>
                                             <div class="custom-file">
-                                                <input name="img" required type="file" value="{{ old('img') }}" class="custom-file-input" id="customFileLangHTML">
+                                                <input name="img" type="file" value="{{ old('img') }}" class="custom-file-input form-control" id="customFileLangHTML">
                                                 <label class="custom-file-label" for="customFileLangHTML" data-browse="Select">Add member's image</label>
                                             </div>
                                             @if($errors->has('img'))
@@ -65,6 +65,28 @@
                                             @if($errors->has('bday'))
                                                 <div class="alert alert-warning" role="alert">
                                                     @error('bday'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputGender">Gender</label>
+                                            <div class="input-group">
+                                                <span class="pl-5 form-control">
+                                                    <input class="form-check-input" type="radio" name="gender" id="genderRadios1" value="M">
+                                                    <label class="form-check-label" for="genderRadios1"> Male </label>
+                                                </span>
+                                                <span class="pl-5 form-control">
+                                                    <input class="form-check-input" type="radio" name="gender" id="genderRadios2" value="F" checked>
+                                                    <label class="form-check-label" for="genderRadios2"> Female </label>
+                                                </span>
+                                                <span class="pl-5 form-control">
+                                                    <input class="form-check-input" type="radio" name="gender" id="genderRadios3" value="O">
+                                                    <label class="form-check-label" for="genderRadios3"> Other </label>
+                                                </span>
+                                            </div>
+                                            @if($errors->has('gender'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('gender'){{$message}}@enderror
                                                 </div>
                                             @endif
                                         </div>

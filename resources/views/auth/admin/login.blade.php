@@ -55,7 +55,7 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="{{url('apply')}}">Want to be a member? Click here!</a></div>
+                                    <div class="small"><a href="{{url('login')}}">Member Login</a></div>
                                 </div>
                             </div>
                         </div>

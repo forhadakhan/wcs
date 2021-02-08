@@ -4,6 +4,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\MemberAuthController;
 
 
 Route::get('/', function () {
@@ -17,14 +18,25 @@ Route::view('testing', 'test');
 // No Authentication Required
 Route::get('apply', [ApplyController::class, 'show']);
 Route::post('record', [ApplyController::class, 'record'])->name('application');
+Route::get('login', [MemberAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
 Route::get('login/admin', [AdminAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
-Route::post('check', [AdminAuthController::class, 'check'])->name('auth.admin.check');
+Route::post('login', [MemberAuthController::class, 'check'])->name('auth.member.check');
+Route::post('login/admin', [AdminAuthController::class, 'check'])->name('auth.admin.check');
+
+
+// Member Authentication Required
+
+Route::get('member', [MemberAuthController::class, 'index']);
+Route::get('member/logout', [MemberAuthController::class, 'logout']);
+Route::get('member/profile', [MemberAuthController::class, 'profile']);
+Route::get('member/update', [MemberAuthController::class, 'updateView']);
 
 
 // Admin Authentication Required
 Route::group(['middleware' => 'authCheckAdmin'], function () {
     Route::get('applications', [AdminAuthController::class, 'applications']);
     Route::get('admins', [AdminAuthController::class, 'allAdmins']);
+    Route::get('members', [AdminAuthController::class, 'allMembers']);
     Route::get('dashboard', [AdminAuthController::class, 'dashboard']);
     Route::get('profile/admin', [AdminAuthController::class, 'profile']);
     Route::get('profile/update', [AdminAuthController::class, 'updateView']);

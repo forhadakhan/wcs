@@ -12,10 +12,18 @@
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
-                                <div class="card-header"><h3 class="text-center font-weight-light my-4">Admin Login</h3></div>
+                                <div class="card-header">
+                                    <span>
+                                        <a href="/"><i class="fas fa-home"></i></a>
+                                    </span>
+                                    <h3 class="text-center font-weight-light my-4">Member Login</h3>
+                                </div>
                                 <div class="card-body">
-                                    <form action="admin" method="POST">
+                                    <form action="{{route('auth.member.check')}}" method="POST">
                                         @csrf
+
+                                        @include('alertMessage')
+                                        
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputEmailAddress">Email</label>
                                             <input required class="form-control py-4" id="inputEmailAddress" type="email" name="email" placeholder="Enter email address" />
@@ -38,6 +46,7 @@
                                 </div>
                                 <div class="card-footer text-center">
                                     <div class="small"><a href="{{url('apply')}}">Want to be a member? Click here!</a></div>
+                                    <div class="small"><a href="{{url('login/admin')}}"> # Admin Login</a></div>
                                 </div>
                             </div>
                         </div>
