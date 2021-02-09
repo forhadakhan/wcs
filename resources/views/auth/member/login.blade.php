@@ -23,7 +23,7 @@
                                         @csrf
 
                                         @include('alertMessage')
-                                        
+
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputEmailAddress">Email</label>
                                             <input required class="form-control py-4" id="inputEmailAddress" type="email" name="email" placeholder="Enter email address" />
@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="card-footer text-center">
                                     <div class="small"><a href="{{url('apply')}}">Want to be a member? Click here!</a></div>
-                                    <div class="small"><a href="{{url('login/admin')}}"> # Admin Login</a></div>
+                                    <div class="small"><a href="{{url('login/admin')}}"> <i class="fas fa-unlock-alt" aria-hidden="true"></i> Admin Login</a></div>
                                 </div>
                             </div>
                         </div>

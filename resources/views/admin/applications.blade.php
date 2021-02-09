@@ -33,7 +33,6 @@
                         <a href="{{ url('a/applications') }}"><button class="btn btn-primary">Pending</button></a>
                         <a href="{{ url('a/applications/checked') }}"><button disabled class="btn btn-secondary">Checked</button></a>
                     @endif
-
                 </div>
 
                 <div class="card mb-4">

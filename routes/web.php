@@ -34,7 +34,8 @@ Route::get('member/update', [MemberAuthController::class, 'updateView']);
 
 // Admin Authentication Required
 Route::group(['middleware' => 'authCheckAdmin'], function () {
-    Route::get('a/admins', [AdminAuthController::class, 'allAdmins']);
+    Route::get('a/staff', [AdminAuthController::class, 'allAdmins']);
+    Route::get('a/admins/blocked', [AdminAuthController::class, 'blockedAdmins']);
     Route::get('a/admin/logout', [AdminAuthController::class, 'logout']);
     Route::get('a/applications', [AdminAuthController::class, 'applications']);
     Route::get('a/applications/checked', [AdminAuthController::class, 'applicationChecked']);
@@ -58,10 +59,13 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
 
 // Super Admin Authentication Required
 Route::group(['middleware' => 'authCheckSuperAdmin'], function () {
+    Route::get('a/admins', [AdminAuthController::class, 'activeAdmins']);
     Route::get('a/admin/add', [AdminAuthController::class, 'register']);
     Route::get('a/admin/edit', [AdminAuthController::class, 'edit']);
     Route::get('a/admin/edit/{id}', [AdminAuthController::class, 'makeEdit']);
     Route::get('a/admin/delete/{id}', [AdminAuthController::class, 'deleteAdminBySuper']);
+    Route::get('a/admin/block/{id}', [AdminAuthController::class, 'adminBlock']);
+    Route::get('a/admin/unblock/{id}', [AdminAuthController::class, 'adminUnblock']);
 
     Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
     Route::post('a/admin/add', [AdminAuthController::class, 'createAdmin'])->name('auth.admin.register');

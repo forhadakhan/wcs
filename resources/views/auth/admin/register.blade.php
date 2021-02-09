@@ -33,14 +33,23 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label class="small mb-1" for="inputFullName">Role</label>
-                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="role">
-                                                <option selected value="ADMIN">ADMIN</option>
-                                                <option value="SUPER_ADMIN">SUPER ADMIN</option>
-                                            </select>
+                                            <label class="small mb-1" for="inputDesignation">Designation</label>
+                                            <input required class="form-control py-4" value="{{ old('role') }}" id="inputDesignation" type="text" name="role" placeholder="Director/Officer/Operator" />
                                             @if($errors->has('role'))
                                                 <div class="alert alert-warning" role="alert">
                                                     @error('role'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inlineFormCustomSelect">Type</label>
+                                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="type">
+                                                <option selected value=0>ADMIN</option>
+                                                <option value=1>SUPER ADMIN</option>
+                                            </select>
+                                            @if($errors->has('type'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('type'){{$message}}@enderror
                                                 </div>
                                             @endif
                                         </div>
@@ -50,6 +59,24 @@
                                             @if($errors->has('phone'))
                                                 <div class="alert alert-warning" role="alert">
                                                     @error('phone'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputBDay">Birth Date</label>
+                                            <input required class="form-control py-4"  value="{{ old('bday') }}" id="inputBDay" type="date" name="bday" placeholder="Enter birth date" />
+                                            @if($errors->has('bday'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('bday'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputJoiningData">Joining Date</label>
+                                            <input required class="form-control py-4"  value="{{ old('joined') }}" id="inputJoiningData" type="date" name="joined" placeholder="Enter joining date" />
+                                            @if($errors->has('joined'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('joined'){{$message}}@enderror
                                                 </div>
                                             @endif
                                         </div>
@@ -75,9 +102,20 @@
                                             <label class="small mb-1" for="inputPassword">Confirm Password</label>
                                             <input required class="form-control py-4" id="inputPassword" type="password" name="password_confirmation" placeholder="Re-enter password" />
                                         </div>
+                                        <div class="form-group">
+                                            <label class="small mb-1" for="inputComment">Comment</label>
+                                            <input required class="form-control py-4" value="{{ old('comment') }}" id="inputComment" type="text" name="comment" placeholder="Comment about staff..." />
+                                            @if($errors->has('comment'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('comment'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
+
                                         <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <button class="btn btn-primary mx-auto" type="submit">Register</button>
                                         </div>
+
                                     </form>
                                 </div>
                             </div>

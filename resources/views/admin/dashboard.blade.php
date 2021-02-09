@@ -24,7 +24,7 @@
                 </ol>
 
                 @include('alertMessage')
-                
+
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">
@@ -35,7 +35,7 @@
                                 </span>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="{{url('applications')}}">View Details</a>
+                                <a class="small text-white stretched-link" href="{{url('a/applications')}}">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
@@ -43,23 +43,23 @@
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-success text-white mb-4">
                             <div class="card-body">
-                                <h1>0</h1>
+                                <h1>{{ $totalActiveMembers }}</h1>
                                 <span>
                                     Active Members
                                 </span>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="#">View Details</a>
+                                <a class="small text-white stretched-link" href="{{url('a/members')}}">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>
                     </div>
                     <div class="col-xl-3 col-md-6">
-                        <div class="card bg-danger text-white mb-4">
+                        <div class="card bg-dark text-white mb-4">
                             <div class="card-body">
-                                <h1>{{ $totalSuperAdmin }}</h1>
+                                <h1>{{ $totalActiveAdmin }}</h1>
                                 <span>
-                                    Super Admins
+                                    Active Admins
                                 </span>
                             </div>
                             <div class="card-footer d-flex align-items-center justify-content-between">
@@ -71,13 +71,13 @@
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-dark text-white mb-4">
                             <div class="card-body">
-                                <h1>{{ $totalGeneralAdmin }}</h1>
+                                <h1>{{ $totalAdmin }}</h1>
                                 <span>
-                                    General Admins
+                                    Stuffs
                                 </span>
                             </div>
                             <div class="card-footer text-black d-flex align-items-center justify-content-between">
-                                <a class="small text-white stretched-link" href="{{url('admins')}}">View Details</a>
+                                <a class="small text-white stretched-link" href="{{url('a/admins')}}">View Details</a>
                                 <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                             </div>
                         </div>

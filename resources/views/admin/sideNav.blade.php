@@ -41,15 +41,17 @@
 
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2" aria-expanded="false" aria-controls="collapseLayouts2">
                     <div class="sb-nav-link-icon"><i class="fas fa-universal-access"></i></div>
-                    Admins
+                    Admin
                     <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                 </a>
                 <div class="collapse" id="collapseLayouts2" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
-                        <a class="nav-link" href="{{url('a/admins')}}"><i class="fas fa-box-open mr-2"></i>All Admins</a>
-                        @if($LoggedAdminInfo->role_admin == 'SUPER_ADMIN')
+                        @if($LoggedAdminInfo->type_admin == 1)
+                            <a class="nav-link" href="{{url('a/admins')}}"><i class="fas fa-box-open mr-2"></i>All Admins</a>
                             <a class="nav-link" href="{{url('a/admin/add')}}"><i class="fas fa-plus-square mr-2"></i>Add Admin</a>
                             <a class="nav-link" href="{{url('a/admin/edit')}}"><i class="fas fa-edit mr-2"></i>Edit Admin</a>
+                        @else
+                            <a class="nav-link" href="{{url('a/staff')}}"><i class="fas fa-box-open mr-2"></i>Staff</a>
                         @endif
                     </nav>
                 </div>
@@ -59,7 +61,7 @@
         </div>
         <div class="sb-sidenav-footer">
             <div class="small">Logged in as:</div>
-            {{ $LoggedAdminInfo->role_admin }}
+            {{ session('LoggedAdminType') == 1 ? "SUPER ADMIN" : "ADMIN" }}
         </div>
     </nav>
 </div>

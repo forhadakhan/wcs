@@ -51,7 +51,7 @@ class AdminAuthController extends Controller
         if ($admin) {
             if (Hash::check($request->password, $admin->password_admin)) {
                 // if password matched, then redirect admin to dashboard
-                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
+                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminType' => $admin->type_admin]);
 
                 return redirect('a/dashboard');
 
@@ -79,6 +79,7 @@ class AdminAuthController extends Controller
         $request->validate([
             'fullName' => 'required|max:69',
             'role' => 'required',
+            'type' => 'required',
             'phone' => 'required|max:15|min:3',
             'email' => 'required|email|max:69|unique:admins_tbl,email_admin',
             'password' => 'required|confirmed|min:4|max:25'
@@ -89,9 +90,13 @@ class AdminAuthController extends Controller
         $admin = new Admin;
         $admin->name_admin = $request->fullName;
         $admin->role_admin = $request->role;
+        $admin->type_admin = $request->type;
         $admin->phone_admin = $request->phone;
+        $admin->birthday_admin = $request->bday;
+        $admin->joined_admin = $request->joined;
         $admin->email_admin = $request->email;
         $admin->password_admin = Hash::make($request->password);
+        $admin->comment_admin = $request->comment;
 
         $query = $admin->save();
 
@@ -102,7 +107,9 @@ class AdminAuthController extends Controller
         //                     'role_admin' => $request->role,
         //                     'phone_admin' => $request->phone,
         //                     'email_admin' => $request->email,
-        //                     'password_admin' => Hash::make($request->password)
+        //                     'password_admin' => Hash::make($request->password),
+        //                      .......
+        //                      .......
         //                 ]);
 
         if ($query) {
@@ -121,8 +128,10 @@ class AdminAuthController extends Controller
             $adminData = [
                 'LoggedAdminInfo' => $admin,
                 'totalSuperAdmin' => DB::table('admins_tbl')->where('role_admin','=','SUPER_ADMIN')->count(),
-                'totalGeneralAdmin' => DB::table('admins_tbl')->where('role_admin','=','ADMIN')->count(),
-                'totalApplications' => DB::table('applications_tbl')->count()
+                'totalActiveAdmin' => DB::table('admins_tbl')->where('access_admin', '=', true)->count(),
+                'totalApplications' => DB::table('applications_tbl')->where('status_application','=',false)->count(),
+                'totalActiveMembers' => DB::table('members_tbl')->where('access_member','=',true)->count(),
+                'totalAdmin' => DB::table('admins_tbl')->count()
             ];
 
             return view('admin.dashboard', $adminData);
@@ -211,6 +220,42 @@ class AdminAuthController extends Controller
             $adminData = [
                 'LoggedAdminInfo' => $admin,
                 'admins' => $data
+            ];
+
+            return view('admin.allAdmins', $adminData);
+        }
+    }
+
+
+    function activeAdmins()
+    {
+        if (session()->has('LoggedAdmin')) {
+            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+            $data = Admin::where('access_admin', '=', true)->select('*')->get();
+
+            $adminData = [
+                'LoggedAdminInfo' => $admin,
+                'admins' => $data,
+                'access' => true
+            ];
+
+            return view('admin.admins', $adminData);
+        }
+    }
+
+
+    function blockedAdmins()
+    {
+        if (session()->has('LoggedAdmin')) {
+            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+            $data = Admin::where('access_admin', '=', false)->select('*')->get();
+
+            $adminData = [
+                'LoggedAdminInfo' => $admin,
+                'admins' => $data,
+                'access' => false
             ];
 
             return view('admin.admins', $adminData);
@@ -305,6 +350,34 @@ class AdminAuthController extends Controller
 
         return back()->with('success', 'Admin Removed');
     }
+
+    function adminBlock($id)
+    {
+        $affected = DB::table('admins_tbl')
+                    ->where('id_admin', $id)
+                    ->update(['access_admin' => false]);
+
+        if($affected){
+            return back()->with('success', 'Admin Blocked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function adminUnblock($id)
+    {
+        $affected = DB::table('admins_tbl')
+                    ->where('id_admin', $id)
+                    ->update(['access_admin' => true]);
+
+        if($affected){
+            return back()->with('success', 'Admin Unblocked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
 
 
 /////////////////////////////////////////////////////////////////////////////

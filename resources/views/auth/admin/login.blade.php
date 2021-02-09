@@ -55,7 +55,7 @@
                                     </form>
                                 </div>
                                 <div class="card-footer text-center">
-                                    <div class="small"><a href="{{url('login')}}">Member Login</a></div>
+                                    <div class="small"><a href="{{url('login')}}"><i class="fas fa-user-circle" aria-hidden="true"></i> Member Login</a></div>
                                 </div>
                             </div>
                         </div>
