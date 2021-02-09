@@ -28,13 +28,13 @@
                 <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="{{ url('login') }}">
-                    @if(session()->has('LoggedAdmin'))
-                        <i class="fa fa-tachometer"> Dashboard </i>
-                    @else
-                        <i class="fa fa-sign-in"> Login </i>
-                    @endif
-                </a>
+                @if(session()->has('LoggedAdmin'))
+                    <a class="nav-link js-scroll-trigger" href="{{ url('dashboard') }}"><i class="fa fa-tachometer"> Dashboard </i></a>
+                @elseif (session()->has('LoggedMember'))
+                    <a class="nav-link js-scroll-trigger" href="{{ url('member') }}"><i class="fa fa-home"> Home </i></a>
+                @else
+                    <a class="nav-link js-scroll-trigger" href="{{ url('login') }}"><i class="fa fa-sign-in"> Login </i></a>
+                @endif
             </li>
             </ul>
         </div>

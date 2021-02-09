@@ -23,10 +23,27 @@
                     <li class="breadcrumb-item active">Applications</li>
                 </ol>
 
+                @include('alertMessage')
+
+                <div class="mb-4">
+                    @if($status == false)
+                        <a href="{{ url('applications') }}"><button disabled class="btn btn-primary">Pending</button></a>
+                        <a href="{{ url('applications/checked') }}"><button class="btn btn-secondary">Checked</button></a>
+                    @else
+                        <a href="{{ url('applications') }}"><button class="btn btn-primary">Pending</button></a>
+                        <a href="{{ url('applications/checked') }}"><button disabled class="btn btn-secondary">Checked</button></a>
+                    @endif
+
+                </div>
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
-                        All Pending Applications
+                        @if ($status == false)
+                            All Pending Applications
+                        @else
+                            All Checked Applications
+                        @endif
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -38,6 +55,7 @@
                                         <th>Email</th>
                                         <th>Message</th>
                                         <th>Time</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -47,6 +65,7 @@
                                         <th>Email</th>
                                         <th>Message</th>
                                         <th>Time</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -57,6 +76,16 @@
                                         <td>{{$application['email_application']}}</td>
                                         <td>{{$application['whyInterested_application']}}</td>
                                         <td>{{$application['created_at']}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                @if ($status == false)
+                                                    <a href="{{ url('applications/checked/'.$application['id_application']) }}" class="btn btn-primary btn-sm"> Checked </a>
+                                                @else
+                                                    <a href="{{ url('applications/uncheck/'.$application['id_application']) }}" class="btn btn-primary btn-sm"> Uncheck </a>
+                                                @endif
+                                                <a href="{{ url('applications/delete/'.$application['id_application']) }}" class="btn btn-danger btn-sm"> Delete </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

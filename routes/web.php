@@ -34,7 +34,6 @@ Route::get('member/update', [MemberAuthController::class, 'updateView']);
 
 // Admin Authentication Required
 Route::group(['middleware' => 'authCheckAdmin'], function () {
-    Route::get('applications', [AdminAuthController::class, 'applications']);
     Route::get('admins', [AdminAuthController::class, 'allAdmins']);
     Route::get('members', [AdminAuthController::class, 'allMembers']);
     Route::get('dashboard', [AdminAuthController::class, 'dashboard']);
@@ -42,6 +41,11 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
     Route::get('profile/update', [AdminAuthController::class, 'updateView']);
     Route::get('admin/logout', [AdminAuthController::class, 'logout']);
     Route::get('members/add', [AdminAuthController::class, 'registerMember']);
+    Route::get('applications', [AdminAuthController::class, 'applications']);
+    Route::get('applications/checked', [AdminAuthController::class, 'applicationChecked']);
+    Route::get('applications/checked/{id}', [AdminAuthController::class, 'applicationCheck']);
+    Route::get('applications/uncheck/{id}', [AdminAuthController::class, 'applicationUncheck']);
+    Route::get('applications/delete/{id}', [AdminAuthController::class, 'applicationDelete']);
 
     Route::post('members/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
     Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');

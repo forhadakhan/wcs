@@ -309,14 +309,75 @@ class AdminAuthController extends Controller
         if (session()->has('LoggedAdmin')) {
             $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
 
-            $data = Application::all();
+            $data = Application::where('status_application', '=', false)->select('*')->get();
 
             $adminData = [
                 'LoggedAdminInfo' => $admin,
-                'applications' => $data
+                'applications' => $data,
+                'status' => false
             ];
 
             return view('admin.applications', $adminData);
+        }
+    }
+
+
+    function applicationChecked()
+    {
+        if (session()->has('LoggedAdmin')) {
+            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+            $data = Application::where('status_application', '=', true)->select('*')->get();
+
+            $adminData = [
+                'LoggedAdminInfo' => $admin,
+                'applications' => $data,
+                'status' => true
+            ];
+
+            return view('admin.applications', $adminData);
+        }
+    }
+
+
+    function applicationCheck($id)
+    {
+        $affected = DB::table('applications_tbl')
+                    ->where('id_application', $id)
+                    ->update(['status_application' => true]);
+
+        if($affected){
+            return back()->with('success', 'Application Marked as Checked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function applicationUncheck($id)
+    {
+        $affected = DB::table('applications_tbl')
+                    ->where('id_application', $id)
+                    ->update(['status_application' => false]);
+
+        if($affected){
+            return back()->with('success', 'Application Marked as Unhecked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function applicationDelete($id)
+    {
+        $delete = DB::table('applications_tbl')
+                ->where('id_application', $id)
+                ->delete();
+
+        if($delete){
+            return back()->with('success', 'Application Removed');
+        } else {
+            return back()->with('fail', 'Something went wrong');
         }
     }
 
