@@ -34,31 +34,35 @@ Route::get('member/update', [MemberAuthController::class, 'updateView']);
 
 // Admin Authentication Required
 Route::group(['middleware' => 'authCheckAdmin'], function () {
-    Route::get('admins', [AdminAuthController::class, 'allAdmins']);
-    Route::get('members', [AdminAuthController::class, 'allMembers']);
-    Route::get('dashboard', [AdminAuthController::class, 'dashboard']);
-    Route::get('profile/admin', [AdminAuthController::class, 'profile']);
-    Route::get('profile/update', [AdminAuthController::class, 'updateView']);
-    Route::get('admin/logout', [AdminAuthController::class, 'logout']);
-    Route::get('members/add', [AdminAuthController::class, 'registerMember']);
-    Route::get('applications', [AdminAuthController::class, 'applications']);
-    Route::get('applications/checked', [AdminAuthController::class, 'applicationChecked']);
-    Route::get('applications/checked/{id}', [AdminAuthController::class, 'applicationCheck']);
-    Route::get('applications/uncheck/{id}', [AdminAuthController::class, 'applicationUncheck']);
-    Route::get('applications/delete/{id}', [AdminAuthController::class, 'applicationDelete']);
+    Route::get('a/admins', [AdminAuthController::class, 'allAdmins']);
+    Route::get('a/admin/logout', [AdminAuthController::class, 'logout']);
+    Route::get('a/applications', [AdminAuthController::class, 'applications']);
+    Route::get('a/applications/checked', [AdminAuthController::class, 'applicationChecked']);
+    Route::get('a/application/checked/{id}', [AdminAuthController::class, 'applicationCheck']);
+    Route::get('a/application/uncheck/{id}', [AdminAuthController::class, 'applicationUncheck']);
+    Route::get('a/application/delete/{id}', [AdminAuthController::class, 'applicationDelete']);
+    Route::get('a/dashboard', [AdminAuthController::class, 'dashboard']);
+    Route::get('a/members', [AdminAuthController::class, 'allMembers']);
+    Route::get('a/member/add', [AdminAuthController::class, 'registerMember']);
+    Route::get('a/member/view/{id}', [AdminAuthController::class, 'memberView']);
+    Route::get('a/member/block/{id}', [AdminAuthController::class, 'memberBlock']);
+    Route::get('a/member/unblock/{id}', [AdminAuthController::class, 'memberUnblock']);
+    Route::get('a/member/delete/{id}', [AdminAuthController::class, 'memberDelete']);
+    Route::get('a/profile', [AdminAuthController::class, 'profile']);
+    Route::get('a/profile/update', [AdminAuthController::class, 'updateView']);
 
-    Route::post('members/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
+    Route::post('a/member/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
     Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
 });
 
 
 // Super Admin Authentication Required
 Route::group(['middleware' => 'authCheckSuperAdmin'], function () {
-    Route::get('admins/add', [AdminAuthController::class, 'register']);
-    Route::get('admins/edit', [AdminAuthController::class, 'edit']);
-    Route::get('admins/edit/{id}', [AdminAuthController::class, 'makeEdit']);
-    Route::get('admins/delete/{id}', [AdminAuthController::class, 'deleteAdminBySuper']);
+    Route::get('a/admin/add', [AdminAuthController::class, 'register']);
+    Route::get('a/admin/edit', [AdminAuthController::class, 'edit']);
+    Route::get('a/admin/edit/{id}', [AdminAuthController::class, 'makeEdit']);
+    Route::get('a/admin/delete/{id}', [AdminAuthController::class, 'deleteAdminBySuper']);
 
     Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
-    Route::post('admins/add', [AdminAuthController::class, 'createAdmin'])->name('auth.admin.register');
+    Route::post('a/admin/add', [AdminAuthController::class, 'createAdmin'])->name('auth.admin.register');
 });

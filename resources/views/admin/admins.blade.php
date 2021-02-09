@@ -23,6 +23,8 @@
                     <li class="breadcrumb-item active">All Admins</li>
                 </ol>
 
+                @include('alertMessage')
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>

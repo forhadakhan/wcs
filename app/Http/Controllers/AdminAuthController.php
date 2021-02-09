@@ -15,12 +15,58 @@ use Illuminate\Support\Facades\Storage;
 
 class AdminAuthController extends Controller
 {
-    //
+
+/////////////////////////////////////////////////////////////////////////////
+//- Login-Logout Related -//////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
     function login()
     {
         return view('auth.admin.login');
     }
 
+
+    function logout()
+    {
+        if (session()->has('LoggedAdmin')) {
+
+            session()->pull('LoggedAdmin');
+            session()->pull('LoggedAdminRole');
+
+            return redirect('login/admin');
+        }
+    }
+
+
+    function check(Request $request)
+    {
+        // Validate request
+        $request->validate([
+            'email' => 'required|email|max:69',
+            'password' => 'required|min:4|max:25'
+        ]);
+
+        // If form validated successfully, then process login
+        $admin = Admin::where('email_admin', '=', $request->email)->first();
+        if ($admin) {
+            if (Hash::check($request->password, $admin->password_admin)) {
+                // if password matched, then redirect admin to dashboard
+                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
+
+                return redirect('a/dashboard');
+
+            } else {
+                return back()->with('fail', 'Invalid password');
+            }
+        } else {
+            return back()->with('fail', 'We do not recognize your email');
+        }
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////
+//- Admin Related -/////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
     function register()
     {
@@ -63,32 +109,6 @@ class AdminAuthController extends Controller
             return back()->with('success', 'Admin registered succesfully');
         } else {
             return back()->with('fail', 'Something went wrong');
-        }
-    }
-
-
-    function check(Request $request)
-    {
-        // Validate request
-        $request->validate([
-            'email' => 'required|email|max:69',
-            'password' => 'required|min:4|max:25'
-        ]);
-
-        // If form validated successfully, then process login
-        $admin = Admin::where('email_admin', '=', $request->email)->first();
-        if ($admin) {
-            if (Hash::check($request->password, $admin->password_admin)) {
-                // if password matched, then redirect admin to dashboard
-                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminRole' => $admin->role_admin]);
-
-                return redirect('dashboard');
-
-            } else {
-                return back()->with('fail', 'Invalid password');
-            }
-        } else {
-            return back()->with('fail', 'We do not recognize your email');
         }
     }
 
@@ -176,7 +196,7 @@ class AdminAuthController extends Controller
             }
         }
         else{
-            return redirect('profile/admin');
+            return redirect('a/profile');
         }
     }
 
@@ -194,23 +214,6 @@ class AdminAuthController extends Controller
             ];
 
             return view('admin.admins', $adminData);
-        }
-    }
-
-
-    function allMembers()
-    {
-        if (session()->has('LoggedAdmin')) {
-            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
-
-            $data = Member::all();
-
-            $adminData = [
-                'LoggedAdminInfo' => $admin,
-                'members' => $data
-            ];
-
-            return view('admin.members', $adminData);
         }
     }
 
@@ -300,9 +303,13 @@ class AdminAuthController extends Controller
                 ->where('id_admin', $id)
                 ->delete();
 
-        return redirect('admins/edit')->with('success', 'Admin Removed');
+        return back()->with('success', 'Admin Removed');
     }
 
+
+/////////////////////////////////////////////////////////////////////////////
+//- Member Applications Related -///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
     function applications()
     {
@@ -382,19 +389,9 @@ class AdminAuthController extends Controller
     }
 
 
-    function logout()
-    {
-        if (session()->has('LoggedAdmin')) {
-
-            session()->pull('LoggedAdmin');
-            session()->pull('LoggedAdminRole');
-
-            return redirect('login/admin');
-        }
-    }
-
-
-
+/////////////////////////////////////////////////////////////////////////////
+//- Member Related -////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
     function registerMember()
     {
@@ -451,6 +448,71 @@ class AdminAuthController extends Controller
         } else {
             return back()->with('fail', 'Something went wrong');
         }
+    }
+
+
+    function allMembers()
+    {
+        if (session()->has('LoggedAdmin')) {
+            $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+            $data = Member::all();
+
+            $adminData = [
+                'LoggedAdminInfo' => $admin,
+                'members' => $data
+            ];
+
+            return view('admin.members', $adminData);
+        }
+    }
+
+
+    function memberBlock($id)
+    {
+        $affected = DB::table('members_tbl')
+                    ->where('id_member', $id)
+                    ->update(['access_member' => false]);
+
+        if($affected){
+            return back()->with('success', 'Member Blocked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function memberUnblock($id)
+    {
+        $affected = DB::table('members_tbl')
+                    ->where('id_member', $id)
+                    ->update(['access_member' => true]);
+
+        if($affected){
+            return back()->with('success', 'Member Unblocked');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function memberDelete($id)
+    {
+        $delete = DB::table('members_tbl')
+                ->where('id_member', $id)
+                ->delete();
+
+        if($delete){
+            return back()->with('success', 'Member Removed');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+
+    function memberView($id)
+    {
+        return "view page";
     }
 
 }

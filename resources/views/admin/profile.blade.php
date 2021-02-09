@@ -16,7 +16,7 @@
 
     <div id="layoutSidenav_content">
         <main>
-            @include('alertMessage')
+            
             <div class="container">
                 <h1 class="mt-4">Profile</h1>
                 <ol class="breadcrumb mb-4">
@@ -26,7 +26,7 @@
                 </ol>
             </div>
 
-
+            @include('alertMessage')
 
             <div class="page-content page-container" id="page-content">
                 <div class="padding">
@@ -44,7 +44,7 @@
                                                 <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
                                                 <li><a href="#!"><i class="fab fa-instagram"></i></a></li>
                                             </ul> --}}
-                                            <a href="{{url('profile/update')}}" class="text-white"><i class=" mdi mdi-square-edit-outline feather fas fa-edit m-t-10 f-16"></i>Edit</a>
+                                            <a href="{{url('a/profile/update')}}" class="text-white"><i class=" mdi mdi-square-edit-outline feather fas fa-edit m-t-10 f-16"></i>Edit</a>
                                         </div>
                                     </div>
                                     <div class="col-sm-8 bc-r">

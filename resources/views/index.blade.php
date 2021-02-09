@@ -16,20 +16,20 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#page-top">Home</a>
+                <a class="nav-link js-scroll-trigger" href="#page-top">Become a member </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                <a class="nav-link js-scroll-trigger" href="#about"> About </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+                <a class="nav-link js-scroll-trigger" href="#services"> Services </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
+                <a class="nav-link js-scroll-trigger" href="#contact"> Contact </a>
             </li>
             <li class="nav-item">
                 @if(session()->has('LoggedAdmin'))
-                    <a class="nav-link js-scroll-trigger" href="{{ url('dashboard') }}"><i class="fa fa-tachometer"> Dashboard </i></a>
+                    <a class="nav-link js-scroll-trigger" href="{{ url('a/dashboard') }}"><i class="fa fa-tachometer"> Dashboard </i></a>
                 @elseif (session()->has('LoggedMember'))
                     <a class="nav-link js-scroll-trigger" href="{{ url('member') }}"><i class="fa fa-home"> Home </i></a>
                 @else
@@ -47,7 +47,7 @@
                 <div class="col-lg-8 mx-auto text-center h-font">
                     <h1>Waterlily Cooperative Society</h1>
                     <p>We stand together, in need of each other.</p>
-                    <a href="{{ url('apply') }}"><button class="btn btn-outline-light" type="button">Become a member</button></a>
+                    <a href="{{ url('apply') }}"><button class="btn btn-outline-light" type="button"> Become a member</button></a>
                 </div>
             </div>
         </div>

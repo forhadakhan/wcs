@@ -16,14 +16,15 @@
     <div id="layoutSidenav_content">
         <main>
 
-            @include('alertMessage')
-
             <div class="container">
                 <h1 class="mt-4">Dashboard</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">CORE</li>
                     <li class="breadcrumb-item active">Dashboard</li>
                 </ol>
+
+                @include('alertMessage')
+                
                 <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">

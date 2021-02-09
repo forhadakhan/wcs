@@ -16,14 +16,14 @@
     <div id="layoutSidenav_content">
         <main>
 
-            @include('alertMessage')
-
             <div class="container">
                 <h1 class="mt-4">Edit Admins</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Admins</li>
                     <li class="breadcrumb-item active">Edit Admins</li>
                 </ol>
+
+                @include('alertMessage')
 
                 <div class="card mb-4">
                     <div class="card-header">
@@ -60,8 +60,8 @@
                                         <td>{{$admin['email_admin']}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ 'edit/'.$admin->id_admin }}" class="btn btn-primary btn-sm"> Edit </a>
-                                                <a href="{{ 'delete/'.$admin->id_admin }}" class="btn btn-danger btn-sm"> Delete </a>
+                                                <a href="{{ url('a/admin/edit/'.$admin->id_admin) }}" class="btn btn-primary btn-sm"> Edit </a>
+                                                <a href="{{ url('a/admin/delete/'.$admin->id_admin) }}" class="btn btn-danger btn-sm"> Delete </a>
                                             </div>
                                         </td>
                                     </tr>

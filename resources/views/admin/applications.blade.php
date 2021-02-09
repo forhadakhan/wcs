@@ -27,11 +27,11 @@
 
                 <div class="mb-4">
                     @if($status == false)
-                        <a href="{{ url('applications') }}"><button disabled class="btn btn-primary">Pending</button></a>
-                        <a href="{{ url('applications/checked') }}"><button class="btn btn-secondary">Checked</button></a>
+                        <a href="{{ url('a/applications') }}"><button disabled class="btn btn-primary">Pending</button></a>
+                        <a href="{{ url('a/applications/checked') }}"><button class="btn btn-secondary">Checked</button></a>
                     @else
-                        <a href="{{ url('applications') }}"><button class="btn btn-primary">Pending</button></a>
-                        <a href="{{ url('applications/checked') }}"><button disabled class="btn btn-secondary">Checked</button></a>
+                        <a href="{{ url('a/applications') }}"><button class="btn btn-primary">Pending</button></a>
+                        <a href="{{ url('a/applications/checked') }}"><button disabled class="btn btn-secondary">Checked</button></a>
                     @endif
 
                 </div>
@@ -78,12 +78,12 @@
                                         <td>{{$application['created_at']}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                @if ($status == false)
-                                                    <a href="{{ url('applications/checked/'.$application['id_application']) }}" class="btn btn-primary btn-sm"> Checked </a>
+                                                @if ($application['status_application'] == false)
+                                                    <a href="{{ url('a/application/checked/'.$application['id_application']) }}" class="btn btn-primary btn-sm"> Checked </a>
                                                 @else
-                                                    <a href="{{ url('applications/uncheck/'.$application['id_application']) }}" class="btn btn-primary btn-sm"> Uncheck </a>
+                                                    <a href="{{ url('a/application/uncheck/'.$application['id_application']) }}" class="btn btn-secondary btn-sm"> Uncheck </a>
                                                 @endif
-                                                <a href="{{ url('applications/delete/'.$application['id_application']) }}" class="btn btn-danger btn-sm"> Delete </a>
+                                                <a href="{{ url('a/application/delete/'.$application['id_application']) }}" class="btn btn-danger btn-sm"> Delete </a>
                                             </div>
                                         </td>
                                     </tr>

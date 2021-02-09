@@ -23,6 +23,8 @@
                     <li class="breadcrumb-item active">All Members</li>
                 </ol>
 
+                @include('alertMessage')
+
                 <div class="card mb-4">
                     <div class="card-header">
                         <i class="fas fa-table mr-1"></i>
@@ -37,6 +39,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Birth Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
@@ -45,6 +48,7 @@
                                         <th>Phone</th>
                                         <th>Email</th>
                                         <th>Birth Date</th>
+                                        <th>Action</th>
                                     </tr>
                                 </tfoot>
                                 <tbody>
@@ -54,6 +58,17 @@
                                         <td>{{$member['phone_member']}}</td>
                                         <td>{{$member['email_member']}}</td>
                                         <td>{{$member['birthday_member']}}</td>
+                                        <td>
+                                            <div class="btn-group">
+                                                <a href="{{ url('a/member/view/'.$member['id_member']) }}" class="btn btn-info btn-sm"> View </a>
+                                                @if ($member['access_member'] == true)
+                                                    <a href="{{ url('a/member/block/'.$member['id_member']) }}" class="btn btn-dark btn-sm"> Block </a>
+                                                @else
+                                                    <a href="{{ url('a/member/unblock/'.$member['id_member']) }}" class="btn btn-dark btn-sm"> Unblock </a>
+                                                @endif
+                                                <a href="{{ url('a/member/delete/'.$member['id_member']) }}" class="btn btn-danger btn-sm"> Delete </a>
+                                            </div>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>

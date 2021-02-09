@@ -4,7 +4,7 @@
             <div class="nav">
 
                 <div class="sb-sidenav-menu-heading">Core</div>
-                <a class="nav-link" href="{{url('dashboard')}}">
+                <a class="nav-link" href="{{url('a/dashboard')}}">
                     <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                     Dashboard
                 </a>
@@ -17,10 +17,10 @@
                 </a>
                 <div class="collapse" id="collapseLayoutsP" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
-                        <a class="nav-link" href="{{url('profile/admin')}}"><i class="fas fa-eye mr-2"></i> View Profile</a>
-                        <a class="nav-link" href="{{url('profile/update')}}"><i class="fas fa-edit mr-2"></i> Update Profile</a>
+                        <a class="nav-link" href="{{url('a/profile')}}"><i class="fas fa-eye mr-2"></i> View Profile</a>
+                        <a class="nav-link" href="{{url('a/profile/update')}}"><i class="fas fa-edit mr-2"></i> Update Profile</a>
                         <a class="nav-link" href="#"><i class="fas fa-lock mr-2"></i> Update Securiy</a>
-                        <a class="nav-link" href="{{url('admin/logout')}}"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+                        <a class="nav-link" href="{{url('a/admin/logout')}}"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
                     </nav>
                 </div>
 
@@ -32,10 +32,10 @@
                 </a>
                 <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
-                        <a class="nav-link" href="{{url('members')}}"><i class="fas fa-tree mr-2"></i>All Members</a>
-                        <a class="nav-link" href="{{url('applications')}}"><i class="fas fa-file-signature mr-2"></i>Applications</a>
-                        <a class="nav-link" href="{{url('members/add')}}"><i class="fas fa-plus-square mr-2"></i>Add Member</a>
-                        <a class="nav-link" href="{{url('members/edit')}}"><i class="fas fa-edit mr-2"></i>Edit Member</a>
+                        <a class="nav-link" href="{{url('a/applications')}}"><i class="fas fa-paper-plane mr-2"></i>Applications</a>
+                        <a class="nav-link" href="{{url('a/members')}}"><i class="fas fa-box-open mr-2"></i>All Members</a>
+                        <a class="nav-link" href="{{url('a/member/add')}}"><i class="fas fa-plus-square mr-2"></i>Add Member</a>
+                        <a class="nav-link" href="{{url('a/member/edit')}}"><i class="fas fa-edit mr-2"></i>Edit Member</a>
                     </nav>
                 </div>
 
@@ -46,10 +46,10 @@
                 </a>
                 <div class="collapse" id="collapseLayouts2" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
-                        <a class="nav-link" href="{{url('admins')}}"><i class="fas fa-tree mr-2"></i>All Admins</a>
+                        <a class="nav-link" href="{{url('a/admins')}}"><i class="fas fa-box-open mr-2"></i>All Admins</a>
                         @if($LoggedAdminInfo->role_admin == 'SUPER_ADMIN')
-                            <a class="nav-link" href="{{url('admins/add')}}"><i class="fas fa-plus-square mr-2"></i>Add Admin</a>
-                            <a class="nav-link" href="{{url('admins/edit')}}"><i class="fas fa-edit mr-2"></i>Edit Admin</a>
+                            <a class="nav-link" href="{{url('a/admin/add')}}"><i class="fas fa-plus-square mr-2"></i>Add Admin</a>
+                            <a class="nav-link" href="{{url('a/admin/edit')}}"><i class="fas fa-edit mr-2"></i>Edit Admin</a>
                         @endif
                     </nav>
                 </div>

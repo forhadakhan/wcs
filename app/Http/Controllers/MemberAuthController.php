@@ -10,12 +10,10 @@ use Illuminate\Support\Facades\Hash;
 
 class MemberAuthController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
 
+/////////////////////////////////////////////////////////////////////////////
+//- Login-Logout Related -////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
     public function login()
     {
@@ -36,10 +34,16 @@ class MemberAuthController extends Controller
         if ($member)
         {
             if (Hash::check($request->password, $member->password_member)) {
-                // if password matched, then redirect admin to dashboard
-                $request->session()->put(['LoggedMember' => $member->id_member]);
-
-                return redirect('member');
+                // if password matched, then check access
+                if($member->access_member == true)
+                {
+                    // if has access then redirect member to home
+                    $request->session()->put(['LoggedMember' => $member->id_member]);
+                    return redirect('member');
+                }
+                else {
+                    return back()->with('fail', "You Don't Have Access");
+                }
 
             } else {
                 return back()->with('fail', 'Invalid password');
@@ -50,6 +54,21 @@ class MemberAuthController extends Controller
         }
     }
 
+
+    function logout()
+    {
+        if (session()->has('LoggedMember')) {
+
+            session()->pull('LoggedMember');
+
+            return redirect('login');
+        }
+    }
+
+
+/////////////////////////////////////////////////////////////////////////////
+//- Member Related -////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
 
     function index()
     {
@@ -88,16 +107,6 @@ class MemberAuthController extends Controller
         }
     }
 
-
-    function logout()
-    {
-        if (session()->has('LoggedMember')) {
-
-            session()->pull('LoggedMember');
-
-            return redirect('login');
-        }
-    }
 
 
 }

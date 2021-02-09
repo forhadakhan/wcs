@@ -13,7 +13,7 @@
                         <div class="col-lg-5">
                             <div class="card shadow-lg border-0 rounded-lg mt-5 mb-5">
                                 <div class="card-header">
-                                    <a href="{{url("dashboard")}}"><span class="badge badge-pill badge-dark">Dashboard</span></a>
+                                    <a href="{{url("a/dashboard")}}"><span class="badge badge-pill badge-dark">Dashboard</span></a>
                                     <h3 class="text-center font-weight-light my-4">Admin Register</h3>
                                 </div>
                                 <div class="card-body">
