@@ -16,7 +16,7 @@ This is a complete project for public viewers, organization members, and staff. 
 
 * Receive membership applications  
 
-* Member access to profile and service requests  
+* Member can access to profile and request for services  
 
 * General admin (staff) controls :  
   * Can see membership applications
@@ -36,7 +36,7 @@ This is a complete project for public viewers, organization members, and staff. 
 
 * HTML5 and CSS3
 * [PHP](https://github.com/php) (v8.0.1)
-* **[Laravl](https://github.com/laravel) (v8.25.0)**
+* **[Laravel](https://github.com/laravel) (v8.25.0)**
 * [MySQL](https://github.com/mysql) (v8.0.23)
 * [Bootstrap](https://getbootstrap.com/) and [Font Awesome](https://github.com/FortAwesome/Font-Awesome)
 * Customized front-end based on [Scrolling Nav](https://startbootstrap.com/template/scrolling-nav) and [SB Admin](https://startbootstrap.com/template/sb-admin)  
