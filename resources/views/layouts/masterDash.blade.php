@@ -8,9 +8,9 @@
     <!-- Styles -->
     <link rel="stylesheet" href=" {{ asset('resources/css/d-main-styles.css') }}">
     <link rel="stylesheet" href=" {{ asset('resources/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href=" {{ asset('resources/css/d-style.css') }}">
     <script src="{{ asset('resources/js/d/all.min.js') }}"></script>
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href=" {{ asset('resources/css/d-style.css') }}">
 
     <!-- Title -->
     @yield('title')
@@ -27,7 +27,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js" crossorigin="anonymous"></script>
-    
+
 
     <!-- JavaScript -->
     <script src="{{ asset('resources/js/d/d-scripts.js') }}"></script>

@@ -19,7 +19,6 @@
                     <nav class="sb-sidenav-menu-nested nav font-weight-light">
                         <a class="nav-link" href="{{url('a/profile')}}"><i class="fas fa-eye mr-2"></i> View Profile</a>
                         <a class="nav-link" href="{{url('a/profile/update')}}"><i class="fas fa-edit mr-2"></i> Update Profile</a>
-                        <a class="nav-link" href="#"><i class="fas fa-lock mr-2"></i> Update Securiy</a>
                         <a class="nav-link" href="{{url('a/admin/logout')}}"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
                     </nav>
                 </div>

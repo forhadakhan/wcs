@@ -54,6 +54,7 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
 
     Route::post('a/member/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
     Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
+    Route::post('updateAdminSecurity', [AdminAuthController::class, 'updateAdminSecurity'])->name('auth.admin.updateAdminSecurity');
 });
 
 
@@ -68,5 +69,6 @@ Route::group(['middleware' => 'authCheckSuperAdmin'], function () {
     Route::get('a/admin/unblock/{id}', [AdminAuthController::class, 'adminUnblock']);
 
     Route::post('updateAdminBySuper', [AdminAuthController::class, 'updateAdminBySuper'])->name('auth.admin.updateAdminBySuper');
+    Route::post('updateAdminSecurityBySuper', [AdminAuthController::class, 'updateAdminSecurityBySuper'])->name('auth.admin.updateAdminSecurityBySuper');
     Route::post('a/admin/add', [AdminAuthController::class, 'createAdmin'])->name('auth.admin.register');
 });

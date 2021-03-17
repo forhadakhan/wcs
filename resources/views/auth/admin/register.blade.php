@@ -18,11 +18,23 @@
                                 </div>
                                 <div class="card-body">
 
-                                    <form action="{{route('auth.admin.register')}}" method="POST">
+                                    <form action="{{route('auth.admin.register')}}" method="POST" enctype="multipart/form-data">
                                         @csrf
 
                                         @include('alertMessage')
 
+                                        <div class="form-group">
+                                            <label class="small mb-1 form-label" for="formFile">Image</label> <br>
+                                            <div class="custom-file">
+                                                <input name="img" type="file" value="{{ old('img') }}" class="custom-file-input form-control" id="formFile">
+                                                <label class="custom-file-label" for="formFile" data-browse="Select">Add admin's image</label>
+                                            </div>
+                                            @if($errors->has('img'))
+                                                <div class="alert alert-warning" role="alert">
+                                                    @error('img'){{$message}}@enderror
+                                                </div>
+                                            @endif
+                                        </div>
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputFullName">Full Name</label>
                                             <input required class="form-control py-4" value="{{ old('fullName') }}" id="inputFullName" type="text" name="fullName" placeholder="Enter full name" />
@@ -104,7 +116,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="small mb-1" for="inputComment">Comment</label>
-                                            <input required class="form-control py-4" value="{{ old('comment') }}" id="inputComment" type="text" name="comment" placeholder="Comment about staff..." />
+                                            <input class="form-control py-4" value="{{ old('comment') }}" id="inputComment" type="text" name="comment" placeholder="Comment about staff..." />
                                             @if($errors->has('comment'))
                                                 <div class="alert alert-warning" role="alert">
                                                     @error('comment'){{$message}}@enderror

@@ -85,9 +85,25 @@ class AdminAuthController extends Controller
             'password' => 'required|confirmed|min:4|max:25'
         ]);
 
-        // If form validated succesfully, then register new user
+        // Renaming and storing the image.
+        if($request->hasFile('img')){
+            $request->validate([
+                'img' => 'mimes:jpg,jpge,png|max:2048'
+            ]);
+            if ($request->file('img')->isValid())
+            {
+                $file = $request->file('img');
+                $img = date('Ymd').time().'.'.$file->extension();
+                $path = $file->move(public_path('storage\\images'), $img);
+            }
+        }
+        else {
+            $img = null;
+        }
 
+        // If form validated succesfully, then register new user
         $admin = new Admin;
+        $admin->img_admin = $img;
         $admin->name_admin = $request->fullName;
         $admin->role_admin = $request->role;
         $admin->type_admin = $request->type;
@@ -99,18 +115,6 @@ class AdminAuthController extends Controller
         $admin->comment_admin = $request->comment;
 
         $query = $admin->save();
-
-        // Above code (same) using QUERY BUILDER
-        // $query = DB::table('admins_tbl')
-        //                 ->insert([
-        //                     'name_admin' => $request->fullName,
-        //                     'role_admin' => $request->role,
-        //                     'phone_admin' => $request->phone,
-        //                     'email_admin' => $request->email,
-        //                     'password_admin' => Hash::make($request->password),
-        //                      .......
-        //                      .......
-        //                 ]);
 
         if ($query) {
             return back()->with('success', 'Admin registered succesfully');
@@ -167,41 +171,73 @@ class AdminAuthController extends Controller
 
     function updateAdmin(Request $request)
     {
-        $adminEmail = json_decode(DB::table('admins_tbl')->where('id_admin', $request->input('id'))
-                                    ->select('email_admin')->get(), true)[0]['email_admin'];
-
-        if (session()->has('LoggedAdmin') == $request->input('id')){
+        if (session('LoggedAdmin') == $request->input('id')){
             $request->validate([
                 'fullName' => 'required|max:69',
-                'role' => 'required',
+                'type' => 'required',
                 'phone' => 'required|max:15|min:3',
             ]);
-
-            if($adminEmail != $request->email){
-                $request->validate([
-                    'email' => 'required|email|max:69|unique:admins_tbl,email_admin',
-                ]);
-            }
 
             $current_timestamp = Carbon::now()->toDateTimeString();
 
             // If form validated succesfully, then update
-
-            $updating = DB::table('admins_tbl')
-                            ->where('id_admin', $request->input('id'))
-                            ->update([
-                                'name_admin' => $request->fullName,
-                                'role_admin' => $request->role,
-                                'phone_admin' => $request->phone,
-                                'email_admin' => $request->email,
-                                'updated_at' => $current_timestamp
-                            ]);
+            $updating = Admin::where('id_admin', $request->input('id'))
+                                ->update([
+                                    'name_admin' => $request->fullName,
+                                    'type_admin' => $request->type,
+                                    'phone_admin' => $request->phone,
+                                    'updated_at' => $current_timestamp
+                                ]);
 
             if($updating){
                 return back()->with('success', 'Admin data updated');
             }
             else{
                 return back()->with('fail', 'Something went wrong. Updating failed');
+            }
+        }
+        else{
+            return redirect('a/profile');
+        }
+    }
+
+    function updateAdminSecurity(Request $request)
+    {
+        $admin = Admin::where('id_admin', '=', $request->id)->first();
+        if (session('LoggedAdmin') == $request->input('id'))
+        {
+            $request->validate([
+                'email' => 'required|email|max:69',
+                'currentPassword' => 'required|min:4|max:30',
+                'password' => 'required|confirmed|min:4|max:30'
+            ]);
+
+            if ((Hash::check($request->currentPassword, $admin->password_admin)) && ($admin->password_admin != null))
+            {
+                if($admin->email_admin != $request->email){
+                    $request->validate([
+                        'email' => 'unique:admins_tbl,email_admin'
+                    ]);
+                }
+
+                $current_timestamp = Carbon::now()->toDateTimeString();
+
+                // If form validated succesfully, then update
+                $updating = Admin::where('id_admin', $request->input('id'))
+                                    ->update([
+                                        'email_admin' => $request->email,
+                                        'password_admin' => Hash::make($request->password),
+                                        'updated_at' => $current_timestamp
+                                    ]);
+
+                if($updating){
+                    return back()->with('success', 'Admin security data updated');
+                }
+                else{
+                    return back()->with('fail', 'Something went wrong. Security updating failed');
+                }
+            } else{
+                return back()->with('fail', 'Invalid password');
             }
         }
         else{
@@ -299,41 +335,74 @@ class AdminAuthController extends Controller
 
     function updateAdminBySuper(Request $request)
     {
-        $adminEmail = json_decode(DB::table('admins_tbl')->where('id_admin', $request->input('id'))
-                                    ->select('email_admin')->get(), true)[0]['email_admin'];
-
-        if (session()->has('LoggedAdmin') == $request->input('id')){
+        if (session('LoggedAdminType') == 1)
+        {
             $request->validate([
                 'fullName' => 'required|max:69',
+                'type' => 'required',
                 'role' => 'required',
+                'bday' => 'required',
+                'joined' => 'required',
                 'phone' => 'required|max:15|min:3',
             ]);
-
-            if($adminEmail != $request->email){
-                $request->validate([
-                    'email' => 'required|email|max:69|unique:admins_tbl,email_admin',
-                ]);
-            }
 
             $current_timestamp = Carbon::now()->toDateTimeString();
 
             // If form validated succesfully, then update
-
-            $updating = DB::table('admins_tbl')
-                            ->where('id_admin', $request->input('id'))
-                            ->update([
-                                'name_admin' => $request->fullName,
-                                'role_admin' => $request->role,
-                                'phone_admin' => $request->phone,
-                                'email_admin' => $request->email,
-                                'updated_at' => $current_timestamp
-                            ]);
+            $updating = Admin::where('id_admin', $request->id)
+                                ->update([
+                                    'name_admin' => $request->fullName,
+                                    'role_admin' => $request->role,
+                                    'type_admin' => $request->type,
+                                    'phone_admin' => $request->phone,
+                                    'birthday_admin' => $request->bday,
+                                    'joined_admin' => $request->joined,
+                                    'updated_at' => $current_timestamp
+                                ]);
 
             if($updating){
                 return back()->with('success', 'Admin data updated');
             }
             else{
                 return back()->with('fail', 'Something went wrong. Updating failed');
+            }
+        }
+        else{
+            return back();
+        }
+    }
+
+    function updateAdminSecurityBySuper(Request $request)
+    {
+        $admin = Admin::where('id_admin', '=', $request->id)->first();
+        if (session('LoggedAdminType') == 1)
+        {
+            $request->validate([
+                'email' => 'required|email|max:69',
+                'password' => 'required|confirmed|min:4|max:30'
+            ]);
+
+            if($admin->email_admin != $request->email){
+                $request->validate([
+                    'email' => 'unique:admins_tbl,email_admin'
+                ]);
+            }
+
+            $current_timestamp = Carbon::now()->toDateTimeString();
+
+            // If form validated succesfully, then update
+            $updating = Admin::where('id_admin', $request->id)
+                                ->update([
+                                    'email_admin' => $request->email,
+                                    'password_admin' => Hash::make($request->password),
+                                    'updated_at' => $current_timestamp
+                                ]);
+
+            if($updating){
+                return back()->with('success', 'Admin security data updated');
+            }
+            else{
+                return back()->with('fail', 'Something went wrong. Security updating failed');
             }
         }
         else{
@@ -496,11 +565,10 @@ class AdminAuthController extends Controller
             }
         }
         else {
-            $img = '';
+            $img = null;
         }
 
         // If form validated succesfully, then register new user
-
         $member = new Member;
         $member->type_member = $request->type;
         $member->img_member = $img;

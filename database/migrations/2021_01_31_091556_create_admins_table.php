@@ -23,6 +23,7 @@ class CreateAdminsTable extends Migration
             $table->date('joined_admin')->nullable($value = true);
             $table->string('email_admin', 70);
             $table->string('password_admin', 150);
+            $table->mediumText('img_admin')->nullable($value = true);
             $table->boolean('access_admin')->default(true);
             $table->text('comment_admin')->nullable($value = true);
             $table->timestamps();
