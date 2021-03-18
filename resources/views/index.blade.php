@@ -44,11 +44,26 @@
     <header class="text-white bg-grid p20p full-vertical-height">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 mx-auto text-center h-font">
-                    <h1>Waterlily Cooperative Society</h1>
-                    <p>We stand together, in need of each other.</p>
-                    <a href="{{ url('apply') }}"><button class="btn btn-outline-light" type="button"> Become a member</button></a>
+                <div class="col-lg-8 mx-auto text-center">
+                    <h1 class="h-font-h1">Waterlily Cooperative Society</h1>
+                    <p class="h-font-p">We stand together, in need of each other.</p>
+                    {{-- <a href="{{ url('apply') }}"><button class="btn btn-outline-light h-font-btn" type="button"> Become a member</button></a> --}}
+
+                    <section class="p-0">    {{-- Modal Section --}}
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-outline-light h-font-btn" data-toggle="modal" data-target="#applyModal">
+                            Become a member
+                        </button>
+
+                        @include('applyModal')
+                    </section>
+
                 </div>
+            </div>
+        </div>
+        <div class="container pt-4">
+            <div class="col-lg-6 mx-auto pt-4">
+                @include('alertMessage')
             </div>
         </div>
     </header>

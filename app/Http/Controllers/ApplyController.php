@@ -18,7 +18,7 @@ class ApplyController extends Controller
     function record(Request $request)
     {
         $request->validate([
-            'fullName' => 'required|max:69',
+            'fullName' => 'required|max:75',
             'phone' => 'required|max:15|min:3|unique:applications_tbl,phone_application',
         ]);
 

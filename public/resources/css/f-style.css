@@ -55,18 +55,18 @@ footer div p {
     height: 100vh;
 }
 
-.h-font h1 {
+.h-font-h1 {
     font-family: "Raleway", sans-serif;
     letter-spacing: 0.05em;
 }
 
-.h-font p {
+.h-font-p {
     font-family: "Shadows Into Light Two", cursive;
     font-size: 1.5em;
     letter-spacing: 0.1rem;
 }
 
-.h-font a button {
+.h-font-btn {
     font-family: "Open Sans Condensed", sans-serif;
     font-size: 1.2rem;
     letter-spacing: 0.15em;
