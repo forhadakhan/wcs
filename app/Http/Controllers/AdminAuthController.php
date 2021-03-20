@@ -30,7 +30,8 @@ class AdminAuthController extends Controller
         if (session()->has('LoggedAdmin')) {
 
             session()->pull('LoggedAdmin');
-            session()->pull('LoggedAdminRole');
+            session()->pull('LoggedAdminType');
+            session()->pull('LoggedAdminImg');
 
             return redirect('login/admin');
         }
@@ -50,7 +51,18 @@ class AdminAuthController extends Controller
         if ($admin) {
             if (Hash::check($request->password, $admin->password_admin)) {
                 // if password matched, then redirect admin to dashboard
-                $request->session()->put(['LoggedAdmin' => $admin->id_admin, 'LoggedAdminType' => $admin->type_admin]);
+
+                if($admin->img_admin != null){
+                    $adminImg = "storage/images/".$admin->img_admin;
+                } else {
+                    $adminImg = "resources/img/user.png";
+                }
+
+                $request->session()->put([
+                        'LoggedAdmin' => $admin->id_admin,
+                        'LoggedAdminType' => $admin->type_admin,
+                        'LoggedAdminImg' => $adminImg
+                    ]);
 
                 return redirect('a/dashboard');
 

@@ -18,18 +18,22 @@ Route::view('testing', 'test');
 // No Authentication Required
 Route::get('apply', [ApplyController::class, 'show']);
 Route::post('record', [ApplyController::class, 'record'])->name('application');
-Route::get('login', [MemberAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
-Route::get('login/admin', [AdminAuthController::class, 'login'])->middleware('alreadyAdminLoggedIn');
+Route::get('login', [MemberAuthController::class, 'login'])->middleware('alreadyLoggedIn');
+Route::get('login/admin', [AdminAuthController::class, 'login'])->middleware('alreadyLoggedIn');
 Route::post('login', [MemberAuthController::class, 'check'])->name('auth.member.check');
 Route::post('login/admin', [AdminAuthController::class, 'check'])->name('auth.admin.check');
 
 
 // Member Authentication Required
+Route::group(['middleware' => 'authCheckMember'], function () {
+    Route::get('member', [MemberAuthController::class, 'index']);
+    Route::get('member/logout', [MemberAuthController::class, 'logout']);
+    Route::get('member/profile', [MemberAuthController::class, 'profile']);
+    Route::get('member/update', [MemberAuthController::class, 'updateView']);
 
-Route::get('member', [MemberAuthController::class, 'index']);
-Route::get('member/logout', [MemberAuthController::class, 'logout']);
-Route::get('member/profile', [MemberAuthController::class, 'profile']);
-Route::get('member/update', [MemberAuthController::class, 'updateView']);
+    Route::post('updateMember', [MemberAuthController::class, 'updateMember'])->name('auth.member.updateMember');
+    Route::post('updateMemberSecurity', [MemberAuthController::class, 'updateMemberSecurity'])->name('auth.member.updateMemberSecurity');
+});
 
 
 // Admin Authentication Required

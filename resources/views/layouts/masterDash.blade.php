@@ -30,15 +30,13 @@
 
 
     <!-- JavaScript -->
+    <script src="{{ asset('resources/js/popper.min.js') }}"></script>
+    <script src="{{ asset('resources/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('resources/js/d/d-scripts.js') }}"></script>
     <script src="{{ asset('resources/js/d/jquery-3.5.1.slim.min.js') }}"></script>
-    <script src="{{ asset('resources/js/d/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('resources/js/d/Chart.min.js') }}"></script>
+    {{-- <script src="{{ asset('resources/js/d/bootstrap.bundle.min.js') }}"></script> --}}
+    {{-- <script src="{{ asset('resources/js/d/Chart.min.js') }}"></script> --}}
     <script src="{{ asset('resources/js/d/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('resources/js/d/dataTables.bootstrap4.min.js') }}"></script>
-
-    <script src="{{ asset('resources/js/d/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('resources/js/d/demo/chart-bar-demo.js') }}"></script>
-    <script src="{{ asset('resources/js/d/demo/datatables-demo.js') }}"></script>
 </body>
 </html>
