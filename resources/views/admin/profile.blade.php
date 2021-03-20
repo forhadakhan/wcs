@@ -16,13 +16,12 @@
 
     <div id="layoutSidenav_content">
         <main>
-            
+
             <div class="container">
-                <h1 class="mt-4">Profile</h1>
+                <h1 class="mt-4 page-heading text-dark">Profile</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Profile</li>
                     <li class="breadcrumb-item active">{{ explode(" ", $LoggedAdminInfo->name_admin)[0] }}</li>
-                    <li class="breadcrumb-item active">View Profile</li>
+                    <li class="breadcrumb-item active">Profile</li>
                 </ol>
             </div>
 

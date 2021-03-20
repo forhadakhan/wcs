@@ -1,7 +1,7 @@
 @extends('layouts.masterDash')
 
 @section('title')
-    <title>WCS | Home</title>
+    <title>WCS | Update</title>
 @endsection
 
 
@@ -17,11 +17,10 @@
         <main>
 
             <div class="container">
-                <h1 class="mt-4">Update Profile</h1>
+                <h1 class="mt-4 page-heading text-dark">Update Profile</h1>
                 <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">Profile</li>
                     <li class="breadcrumb-item active">{{ explode(" ", $LoggedMemberInfo->name_member)[0] }}</li>
-                    <li class="breadcrumb-item active">Update Profile</li>
+                    <li class="breadcrumb-item active">Update</li>
                 </ol>
             </div>
 

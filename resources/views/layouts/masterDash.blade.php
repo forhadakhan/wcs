@@ -6,6 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Styles -->
+    <style>
+        @font-face {
+            font-family: BeautyMountains;
+            src: url("{{asset('resources/fonts/BeautyMountains.ttf')}}");
+        }
+
+    </style>
     <link rel="stylesheet" href=" {{ asset('resources/css/d-main-styles.css') }}">
     <link rel="stylesheet" href=" {{ asset('resources/css/dataTables.bootstrap4.min.css') }}">
     <script src="{{ asset('resources/js/d/all.min.js') }}"></script>
@@ -35,8 +42,12 @@
     <script src="{{ asset('resources/js/d/d-scripts.js') }}"></script>
     <script src="{{ asset('resources/js/d/jquery-3.5.1.slim.min.js') }}"></script>
     {{-- <script src="{{ asset('resources/js/d/bootstrap.bundle.min.js') }}"></script> --}}
-    {{-- <script src="{{ asset('resources/js/d/Chart.min.js') }}"></script> --}}
+    <script src="{{ asset('resources/js/d/Chart.min.js') }}"></script>
     <script src="{{ asset('resources/js/d/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('resources/js/d/dataTables.bootstrap4.min.js') }}"></script>
+
+    <script src="{{ asset('resources/js/d/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('resources/js/d/demo/chart-bar-demo.js') }}"></script>
+    <script src="{{ asset('resources/js/d/demo/datatables-demo.js') }}"></script>
 </body>
 </html>

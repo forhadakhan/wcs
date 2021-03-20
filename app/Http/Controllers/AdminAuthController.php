@@ -609,10 +609,12 @@ class AdminAuthController extends Controller
             $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
 
             $data = Member::all();
+            $memberTypes = ['', 'None', 'Regular', 'Basic', 'Platinum', 'Gold'];
 
             $adminData = [
                 'LoggedAdminInfo' => $admin,
-                'members' => $data
+                'members' => $data,
+                'memberTypes' => $memberTypes
             ];
 
             return view('admin.members', $adminData);

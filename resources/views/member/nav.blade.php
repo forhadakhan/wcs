@@ -6,7 +6,7 @@
 
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="nav-link dropdown-toggle btn" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{ asset(session('LoggedMemberImg')) }}" width="30" height="30" class="rounded-circle">
                 {{ explode(" ", $LoggedMemberInfo->name_member)[0] }}
             </a>
@@ -19,4 +19,5 @@
         </li>
     </ul>
 </nav>
+
 

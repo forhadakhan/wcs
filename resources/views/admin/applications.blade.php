@@ -16,7 +16,7 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container">
-                <h1 class="mt-4">Applications</h1>
+                <h1 class="mt-4 page-heading text-dark">Applications</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">LAB</li>
                     <li class="breadcrumb-item active">Members</li>

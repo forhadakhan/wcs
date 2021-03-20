@@ -17,7 +17,7 @@
         <main>
 
             <div class="container">
-                <h1 class="mt-4">Edit Admins</h1>
+                <h1 class="mt-4 page-heading text-dark">Edit Admins</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">Admins</li>
                     <li class="breadcrumb-item active">Edit Admins</li>
@@ -60,9 +60,28 @@
                                         <td>{{$admin['email_admin']}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a href="{{ url('a/admin/edit/'.$admin->id_admin) }}" class="btn btn-primary btn-sm"> Edit </a>
-                                                <a href="{{ url('a/admin/delete/'.$admin->id_admin) }}" class="btn btn-danger btn-sm"> Delete </a>
+                                                <a href="{{ url('a/admin/edit/'.$admin->id_admin) }}" data-toggle="tooltip" title="Edit" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i>  </a>
+                                                <a class="btn btn-danger btn-sm" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-trash-alt"></i> </a>
                                             </div>
+                                                <!-- Modal -->
+                                                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog  modal-dialog-centered">
+                                                    <div class="modal-content p-5 bg-light">
+                                                        <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure you want to delete?</h5>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <strong>{{$admin['name_admin']}}</strong> <br>
+                                                            <span>{{$admin['role_admin']}}</span> <br>
+                                                            <span>{{$admin['email_admin']}}</span> <br>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                                        <a href="{{ url('a/admin/delete/'.$admin->id_admin) }}" type="button" class="btn btn-danger">Yes</a>
+                                                        </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
                                         </td>
                                     </tr>
                                     @endforeach

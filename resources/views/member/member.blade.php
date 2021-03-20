@@ -19,7 +19,7 @@
             @include('alertMessage')
 
             <div class="container">
-                <h1 class="mt-4">Home</h1>
+                <h1 class="mt-4 page-heading text-dark">Home</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item active">CORE</li>
                     <li class="breadcrumb-item active">Home</li>
