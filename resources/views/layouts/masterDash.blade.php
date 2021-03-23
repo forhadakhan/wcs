@@ -6,17 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- Styles -->
-    <style>
-        @font-face {
-            font-family: BeautyMountains;
-            src: url("{{asset('resources/fonts/BeautyMountains.ttf')}}");
-        }
-    </style>
-
     <link rel="stylesheet" href=" {{ asset('resources/css/d-main-styles.css') }}">
     <link rel="stylesheet" href=" {{ asset('resources/css/font-awesome.min.css') }}">
-    {{-- <link rel="stylesheet" href=" {{ asset('resources/css/bootstrap.min.css') }}"> --}}
-    {{-- <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
 @stack('css')
     <link rel="stylesheet" href=" {{ asset('resources/css/d-style.css') }}">
 

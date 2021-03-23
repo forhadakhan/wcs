@@ -465,7 +465,7 @@ class AdminAuthController extends Controller
 //- Service Related -///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////
 
-    function serviceRequests($status = null)
+    function serviceRequests($status = null, $id = null)
     {
         if(empty($status)){
             $reqs = DB::table('service_requests_tbl')
@@ -555,6 +555,23 @@ class AdminAuthController extends Controller
                 'cat' => 'Completed',
                 'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
             ];
+        }
+        elseif($status == 'member'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.member_id_sr', $id)
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Completed',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first(),
+                'member' => Member::where('id_member', '=', $id)->first()
+            ];
+            return view('admin.memberServices', $serviceRwquests);
         }
         else{
             $serviceRwquests = [];
@@ -834,7 +851,15 @@ class AdminAuthController extends Controller
 
     function memberView($id)
     {
-        return "view page";
+        $member = Member::where('id_member', '=', $id)->first();
+        $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
+
+        $data = [
+                'member' => $member,
+                'LoggedAdminInfo' => $admin
+        ];
+
+        return view('admin.memberView', $data);
     }
 
 }

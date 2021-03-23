@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ApplyController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\MemberAuthController;
+use App\Http\Controllers\ExportController;
 
 
 Route::get('/', function () {
@@ -58,8 +59,9 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
     Route::get('a/member/delete/{id}', [AdminAuthController::class, 'memberDelete']);
     Route::get('a/profile', [AdminAuthController::class, 'profile']);
     Route::get('a/profile/update', [AdminAuthController::class, 'updateView']);
-    Route::get('a/requests/{status?}', [AdminAuthController::class, 'serviceRequests']);
+    Route::get('a/requests/{status?}/{id?}', [AdminAuthController::class, 'serviceRequests']);
     Route::get('a/requests/action/{operation}/{id}', [AdminAuthController::class, 'serviceOperations']);
+    Route::get('a/member/pdf/{id}', [ExportController::class, 'memberPDF']);
 
     Route::post('a/member/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
     Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');

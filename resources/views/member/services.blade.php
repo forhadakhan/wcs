@@ -1,7 +1,15 @@
 @extends('layouts.masterDash')
 
+@push('css')
+    <style>
+        @font-face {
+            font-family: BeautyMountains;
+            src: url("{{asset('resources/fonts/BeautyMountains.ttf')}}");
+        }
+    </style>
+@endpush
+
 @section('title')
-    <link rel="stylesheet" href=" {{ asset('resources/css/profileCardStyle.css') }}">
     <title>WCS | Services</title>
 @endsection
 

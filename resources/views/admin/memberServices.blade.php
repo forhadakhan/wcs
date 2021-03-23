@@ -1,7 +1,6 @@
 @extends('layouts.masterDash')
 
 @push('css')
-    <link rel="stylesheet" href=" {{ asset('resources/DataTables/datatables.min.css') }}">
     <style>
         @font-face {
             font-family: BeautyMountains;
@@ -11,7 +10,7 @@
 @endpush
 
 @section('title')
-    <title>WCS | Service Requests</title>
+    <title>WCS | Member Services </title>
 @endsection
 
 
@@ -19,48 +18,39 @@
 
     @include('admin.nav')
 
-<div id="layoutSidenav">
+    <div id="layoutSidenav">
 
-    @include('admin.sideNav')
+        @include('admin.sideNav')
 
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container">
-                <h1 class="mt-4 page-heading text-dark">Service Requests</h1>
-                <ol class="breadcrumb mb-4">
-                    <li class="breadcrumb-item active">CORE</li>
-                    <li class="breadcrumb-item active">Service Requests</li>
-                </ol>
+        <div id="layoutSidenav_content">
+            <main>
 
-                @include('alertMessage')
+                <div class="container">
+                    <h1 class="mt-4 page-heading text-dark">Member</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Member View</li>
+                        <li class="breadcrumb-item active">Member Services</li>
+                    </ol>
 
-                <ul class="nav justify-content-center mb-4">
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-info" href="{{url('a/requests/')}}" role="button">All</a>
-                    </li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-primary" href="{{url('a/requests/processing')}}" role="button">Processing</a>
-                    </li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-success" href="{{url('a/requests/accepted')}}" role="button">Accepted</a>
-                    </li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-danger" href="{{url('a/requests/declined')}}" role="button">Declined</a>
-                    </li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-warning" href="{{url('a/requests/running')}}" role="button">Running</a>
-                    </li>
-                    <li class="nav-item m-2">
-                        <a class="nav-link btn btn-dark" href="{{url('a/requests/completed')}}" role="button">Completed</a>
-                    </li>
-                </ul>
+                    @include('alertMessage')
 
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table mr-1"></i>
-                        {{$cat}} Service Requests
-                    </div>
-                    <div class="card-body">
+                    <div class="container">
+                        <div class="mb-4">
+                            <ul class="nav justify-content-center mb-4">
+                                <li class="nav-item m-2">
+                                    <a class="nav-link btn btn-info" href="{{url('a/member/pdf/'.$member->id_member)}}" role="button"><i class="far fa-file-pdf"></i> PDF</a>
+                                </li>
+                                <li class="nav-item m-2">
+                                    <a class="nav-link btn btn-primary" href="{{url('a/requests/member/'.$member->id_member)}}" role="button">Services</a>
+                                </li>
+                                <li class="nav-item m-2">
+                                    <a class="nav-link btn btn-primary" href="{{url('a/member/view/'.$member->id_member)}}" role="button">Profile</a>
+                                </li>
+                            </ul>
+
+                            <hr>
+                        </div>
+
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead class="bg-dark text-white rounded">
@@ -192,22 +182,12 @@
                             </table>
                         </div>
                     </div>
+
                 </div>
-            </div>
-        </main>
+            </main>
 
-        @include('admin.footer')
+            @include('admin.footer')
+        </div>
     </div>
-</div>
 @endsection
-
-@push('js')
-    <script type="text/javascript" src="{{ asset('resources/DataTables/datatables.min.js') }}"></script>
-    <script>
-        $(document).ready( function () {
-            $('#dataTable').DataTable();
-        } );
-    </script>
-@endpush
-
 

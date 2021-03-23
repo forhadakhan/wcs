@@ -2,6 +2,12 @@
 
 @push('css')
     <link rel="stylesheet" href=" {{ asset('resources/DataTables/datatables.min.css') }}">
+    <style>
+        @font-face {
+            font-family: BeautyMountains;
+            src: url("{{asset('resources/fonts/BeautyMountains.ttf')}}");
+        }
+    </style>
 @endpush
 
 @section('title')
