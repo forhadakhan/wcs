@@ -1,5 +1,9 @@
 @extends('layouts.masterDash')
 
+@push('css')
+    <link rel="stylesheet" href=" {{ asset('resources/DataTables/datatables.min.css') }}">
+@endpush
+
 @section('title')
     <title>WCS | Admins</title>
 @endsection
@@ -32,7 +36,7 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                         <th>Role</th>
@@ -71,3 +75,11 @@
 </div>
 @endsection
 
+@push('js')
+    <script type="text/javascript" src="{{ asset('resources/DataTables/datatables.min.js') }}"></script>
+    <script>
+        $(document).ready( function () {
+            $('#dataTable').DataTable();
+        } );
+    </script>
+@endpush

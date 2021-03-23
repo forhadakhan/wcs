@@ -55,7 +55,7 @@
                             Become a member
                         </button>
 
-                        @include('applyModal')
+                        @include('modals.applyModal')
                     </section>
 
                 </div>

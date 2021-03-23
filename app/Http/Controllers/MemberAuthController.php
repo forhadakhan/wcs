@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use App\Models\Member;
 use App\Models\MemberType;
+use App\Models\ServiceRequests;
+use App\Models\ServiceRequestTypes;
+use App\Models\ServiceRequestSubTypes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -213,6 +216,68 @@ class MemberAuthController extends Controller
         }
         else{
             return redirect('a/profile');
+        }
+    }
+
+
+    // Service Related
+
+    function services()
+    {
+        if (session()->has('LoggedMember')) {
+            $member = Member::where('id_member', '=', session('LoggedMember'))->first();
+            $serviceHistory = ServiceRequests::where('member_id_sr', '=', session()->get('LoggedMember'))->get();
+
+            $memberData = [
+                'LoggedMemberInfo' => $member,
+                'serviceHistory' => $serviceHistory
+            ];
+
+            return view('member.services', $memberData);
+        }
+    }
+
+    function financialRequest(Request $request)
+    {
+        $request->validate([
+            'sub_category' => 'required',
+            'title' => 'required',
+            'body' => 'required',
+            'amount' => 'required',
+            'bofore_date' => 'nullable'
+        ]);
+
+        // $member = Member::find(session()->get('LoggedMember'));
+        // $category = ServiceRequestTypes::find(2);
+        // $subCategory = ServiceRequestSubTypes::find($request->sub_category);
+
+        // If form validated succesfully, then register new records
+        $sr = new ServiceRequests;
+        $sr->member_id_sr = session()->get('LoggedMember');
+        $sr->category_sr = 2;
+        $sr->sub_category_sr = $request->sub_category;
+        $sr->title_sr = $request->title;
+        $sr->body_sr = $request->body;
+        $sr->amount_sr = $request->amount;
+        $sr->bofore_date_sr = $request->bofore_date;
+
+        $query = $sr->save();
+
+        if($query) {
+            return back()->with('success', 'Request submitted succesfully');
+        } else {
+            return back()->with('fail', 'Something went wrong');
+        }
+    }
+
+    function servicesCancel($id){
+        $serviceCancel = ServiceRequests::where('id_sr', $id)
+                                        ->where('member_id_sr', session('LoggedMember'))
+                                        ->delete();
+        if($serviceCancel) {
+            return back()->with('success', 'Service request canceled');
+        } else {
+            return back()->with('fail', 'Something went wrong. Request not canceled');
         }
     }
 

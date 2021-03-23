@@ -82,6 +82,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card bg-secondary text-white mb-4">
+                            <div class="card-body">
+                                <h1>{{ $newRequests  }}</h1>
+                                <span>
+                                    New Requests
+                                </span>
+                            </div>
+                            <div class="card-footer text-black d-flex align-items-center justify-content-between">
+                                <a class="small text-white stretched-link" href="{{url('a/requests/processing')}}">View Details</a>
+                                <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </main>

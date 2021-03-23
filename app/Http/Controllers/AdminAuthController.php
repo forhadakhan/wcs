@@ -6,10 +6,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Member;
+use App\Models\ServiceRequests;
+use App\Models\ServiceRequestTypes;
 use App\Models\Application;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
 
 
 class AdminAuthController extends Controller
@@ -48,6 +49,7 @@ class AdminAuthController extends Controller
 
         // If form validated successfully, then process login
         $admin = Admin::where('email_admin', '=', $request->email)->first();
+
         if ($admin) {
             if (Hash::check($request->password, $admin->password_admin)) {
                 // if password matched, then redirect admin to dashboard
@@ -137,18 +139,19 @@ class AdminAuthController extends Controller
 
     function dashboard()
     {
-        if (session()->has('LoggedAdmin')) {
+        if (session()->has('LoggedAdmin'))
+        {
             $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
 
             $adminData = [
                 'LoggedAdminInfo' => $admin,
-                'totalSuperAdmin' => DB::table('admins_tbl')->where('role_admin','=','SUPER_ADMIN')->count(),
-                'totalActiveAdmin' => DB::table('admins_tbl')->where('access_admin', '=', true)->count(),
-                'totalApplications' => DB::table('applications_tbl')->where('status_application','=',false)->count(),
-                'totalActiveMembers' => DB::table('members_tbl')->where('access_member','=',true)->count(),
-                'totalAdmin' => DB::table('admins_tbl')->count()
+                'totalSuperAdmin' => Admin::where('role_admin','=','SUPER_ADMIN')->count(),
+                'totalActiveAdmin' => Admin::where('access_admin', '=', true)->count(),
+                'totalApplications' => Application::where('status_application','=',false)->count(),
+                'newRequests' => ServiceRequests::where('status_sr', '=', 'PROCESSING')->count(),
+                'totalActiveMembers' => Member::where('access_member','=',true)->count(),
+                'totalAdmin' => Admin::count()
             ];
-
             return view('admin.dashboard', $adminData);
         }
     }
@@ -331,9 +334,8 @@ class AdminAuthController extends Controller
         if (session()->has('LoggedAdmin')) {
             $admin = Admin::where('id_admin', '=', session('LoggedAdmin'))->first();
 
-            $data = DB::table('admins_tbl')
-                        ->where('id_admin', $id)
-                        ->first();
+            // $data = DB::table('admins_tbl')->where('id_admin', $id)->first();
+            $data = Admin::where('id_admin', '=', $id)->first();
 
             $adminData = [
                 'LoggedAdminInfo' => $admin,
@@ -458,6 +460,173 @@ class AdminAuthController extends Controller
         }
     }
 
+
+/////////////////////////////////////////////////////////////////////////////
+//- Service Related -///////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////
+
+    function serviceRequests($status = null)
+    {
+        if(empty($status)){
+            $reqs = DB::table('service_requests_tbl')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'All',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        elseif($status == 'processing'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.status_sr', 'PROCESSING')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Processing',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        elseif($status == 'accepted'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.status_sr', 'ACCEPTED')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Accepted',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        elseif($status == 'declined'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.status_sr', 'DECLINED')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Declined',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        elseif($status == 'running'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.status_sr', 'RUNNING')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Running',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        elseif($status == 'completed'){
+            $reqs = DB::table('service_requests_tbl')
+                ->where('service_requests_tbl.status_sr', 'COMPLETED')
+                ->join('members_tbl', 'service_requests_tbl.member_id_sr', '=', 'members_tbl.id_member')
+                ->join('service_request_types_tbl', 'service_requests_tbl.category_sr', '=', 'service_request_types_tbl.id_srt')
+                ->join('service_request_sub_types_tbl', 'service_requests_tbl.sub_category_sr', '=', 'service_request_sub_types_tbl.id_srst')
+                ->select('service_requests_tbl.*', 'members_tbl.name_member', 'members_tbl.nid_member', 'service_request_types_tbl.category_srt', 'service_request_sub_types_tbl.sub_category_srst')
+                ->get();
+
+            $serviceRwquests = [
+                'allRequests' => $reqs,
+                'cat' => 'Completed',
+                'LoggedAdminInfo' => Admin::where('id_admin', '=', session('LoggedAdmin'))->first()
+            ];
+        }
+        else{
+            $serviceRwquests = [];
+        }
+        return view('admin.requests', $serviceRwquests);
+    }
+
+
+    function serviceOperations($operation, $id)
+    {
+        if (session()->has('LoggedAdmin'))
+        {
+            if($operation == 'delete')
+            {
+                $del = ServiceRequests::where('id_sr', $id)->delete();
+
+                if($del){
+                    return back()->with('success', 'Request Deleted');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            elseif($operation == 'decline'){
+                $affected = ServiceRequests::where('id_sr', $id)->update(['status_sr' => 'DECLINED']);
+
+                if($affected){
+                    return back()->with('success', 'Request Marked as Declined');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            elseif($operation == 'accept'){
+                $affected = ServiceRequests::where('id_sr', $id)->update(['status_sr' => 'ACCEPTED']);
+
+                if($affected){
+                    return back()->with('success', 'Request Marked as Accepted');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            elseif($operation == 'run'){
+                $affected = ServiceRequests::where('id_sr', $id)->update(['status_sr' => 'RUNNING']);
+
+                if($affected){
+                    return back()->with('success', 'Request Marked as Running');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            elseif($operation == 'complete'){
+                $affected = ServiceRequests::where('id_sr', $id)->update(['status_sr' => 'COMPLETED']);
+
+                if($affected){
+                    return back()->with('success', 'Request Marked as Completed');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            elseif($operation == 'processing'){
+                $affected = ServiceRequests::where('id_sr', $id)->update(['status_sr' => 'PROCESSING']);
+
+                if($affected){
+                    return back()->with('success', 'Request Marked as Processing');
+                } else {
+                    return back()->with('fail', 'Something went wrong');
+                }
+            }
+            else{
+                return abort(404);
+            }
+        }
+    }
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -590,7 +759,6 @@ class AdminAuthController extends Controller
         $member->nid_member = $request->nid;
         $member->email_member = $request->email;
         $member->password_member = Hash::make($request->password);
-
 
         $query = $member->save();
 

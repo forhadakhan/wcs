@@ -12,7 +12,7 @@ Route::get('/', function () {
 });
 
 // Dummy testing file view
-Route::view('testing', 'test');
+Route::get('test', [AdminAuthController::class, 'test']);
 
 
 // No Authentication Required
@@ -30,9 +30,12 @@ Route::group(['middleware' => 'authCheckMember'], function () {
     Route::get('member/logout', [MemberAuthController::class, 'logout']);
     Route::get('member/profile', [MemberAuthController::class, 'profile']);
     Route::get('member/update', [MemberAuthController::class, 'updateView']);
+    Route::get('member/services', [MemberAuthController::class, 'services']);
+    Route::get('member/services/cancel/{id}', [MemberAuthController::class, 'servicesCancel']);
 
     Route::post('updateMember', [MemberAuthController::class, 'updateMember'])->name('auth.member.updateMember');
     Route::post('updateMemberSecurity', [MemberAuthController::class, 'updateMemberSecurity'])->name('auth.member.updateMemberSecurity');
+    Route::post('financialRequest', [MemberAuthController::class, 'financialRequest'])->name('service_request_financial');
 });
 
 
@@ -55,6 +58,8 @@ Route::group(['middleware' => 'authCheckAdmin'], function () {
     Route::get('a/member/delete/{id}', [AdminAuthController::class, 'memberDelete']);
     Route::get('a/profile', [AdminAuthController::class, 'profile']);
     Route::get('a/profile/update', [AdminAuthController::class, 'updateView']);
+    Route::get('a/requests/{status?}', [AdminAuthController::class, 'serviceRequests']);
+    Route::get('a/requests/action/{operation}/{id}', [AdminAuthController::class, 'serviceOperations']);
 
     Route::post('a/member/add', [AdminAuthController::class, 'createMember'])->name('auth.member.add');
     Route::post('updateAdmin', [AdminAuthController::class, 'updateAdmin'])->name('auth.admin.updateAdmin');
