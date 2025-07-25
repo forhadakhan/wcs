@@ -9,7 +9,10 @@
 
 Waterlily Cooperative Society (WCS) is a Bangladeshi local NGO formed to helping Bangladeshi rural peoples. They mainly work with women, and their main target is to make their members financially stable. They help their members to build new skills, make savings, sell their goods, and mentorship. They also provide funding for business and emergency needs.
 
-<br><br>
+<br>
+<br>
+<p align="center"> <b>⚠️ Deprecated – THIS PROJECT IS NO LONGER SUPPORTED</b> </p>
+<br>
 
 ## About this project
 This is a complete project for public viewers, organization members, and staff. It includes front-end and back-end along with the following features:      
